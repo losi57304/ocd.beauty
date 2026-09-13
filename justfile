@@ -1,8 +1,6 @@
 alias dec := decrypt
 alias enc := encrypt
 
-set default-list := true
-
 @decrypt:
     sops decrypt .enc.env >.env
 
