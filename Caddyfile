@@ -20,5 +20,5 @@ navidrome.ocd.beauty {
 }
 
 uptime-kuma.ocd.beauty {
-    reverse_proxy uptime-kuma:3000
+    reverse_proxy uptime-kuma:3001
 }
