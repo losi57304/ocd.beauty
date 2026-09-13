@@ -11,7 +11,9 @@ copyparty.ocd.beauty {
 }
 
 livekit-server.continuwuity.ocd.beauty {
-    reverse_proxy /sfu/get* /healthz* /get_token* lk-jwt-service:8080
+    @lk-jwt-service path /sfu/get* /healthz* /get_token*
+    reverse_proxy @lk-jwt-service lk-jwt-service:8080
+
     reverse_proxy host.docker.internal:7880
 }
 
