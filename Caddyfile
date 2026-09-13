@@ -1,0 +1,20 @@
+beszel.ocd.beauty {
+    reverse_proxy beszel:8090
+}
+
+continuwuity.ocd.beauty {
+    reverse_proxy unix//run/continuwuity/continuwuity.sock
+}
+
+copyparty.ocd.beauty {
+    reverse_proxy unix//run/copyparty/copyparty.sock
+}
+
+livekit-server.continuwuity.ocd.beauty {
+    reverse_proxy /sfu/get* /healthz* /get_token* lk-jwt-service:8080
+    reverse_proxy host.docker.internal:7880
+}
+
+navidrome.ocd.beauty {
+    reverse_proxy unix//run/navidrome/navidrome.sock
+}

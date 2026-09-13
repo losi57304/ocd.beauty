@@ -1,0 +1,114 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  beszel:
+    <<: *default-logging
+    container_name: beszel
+    image: henrygd/beszel:0.19.0
+    restart: unless-stopped
+    volumes:
+      - /run/beszel:/beszel_socket
+      - /srv/beszel/data:/beszel_data
+
+  beszel-agent:
+    <<: *default-logging
+    container_name: beszel-agent
+    image: henrygd/beszel-agent:0.19.0
+    restart: unless-stopped
+    environment:
+      - HUB_URL=http://beszel:8090
+      - KEY=${BESZEL_KEY}
+      - LISTEN=/beszel_socket/beszel.sock
+      - TOKEN=${BESZEL_TOKEN}
+    volumes:
+      - /run/beszel:/beszel_socket
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  caddy:
+    <<: *default-logging
+    container_name: caddy
+    image: caddy:2.11.4
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /run/continuwuity:/run/continuwuity
+      - /run/copyparty:/run/copyparty
+      - /run/navidrome:/run/navidrome
+      - /srv/caddy/config:/config
+      - /srv/caddy/data:/data
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  continuwuity:
+    <<: *default-logging
+    container_name: continuwuity
+    image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
+    restart: unless-stopped
+    command:
+     - /sbin/conduwuit
+    environment:
+      - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
+      - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
+    volumes:
+      - /run/continuwuity:/run/continuwuity
+      - /srv/conduwuit:/var/lib/conduwuit
+      - ./continuwuity.toml:/etc/continuwuity.toml
+
+  copyparty:
+    <<: *default-logging
+    container_name: copyparty
+    image: copyparty/ac:1.20.23
+    restart: unless-stopped
+    command:
+      - -a
+      - ${COPYPARTY_USER}:${COPYPARTY_PASSWORD}
+    volumes:
+      - /run/copyparty:/run/copyparty
+      - /srv/copyparty/cfg:/cfg
+      - /srv/navidrome/music:/music
+      - ./copyparty.conf:/cfg/copyparty.conf
+
+  livekit-server:
+    <<: *default-logging
+    container_name: livekit-server
+    image: livekit/livekit-server:v1.13.6
+    restart: unless-stopped
+    command:
+      - --config
+      - /etc/livekit.yaml
+    environment:
+      - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
+      - LIVEKIT_NODE=${LIVEKIT_NODE}
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml
+    network_mode: host
+
+  lk-jwt-service:
+    <<: *default-logging
+    container_name: lk-jwt-service
+    image: ghcr.io/element-hq/lk-jwt-service:0.7.0
+    restart: unless-stopped
+    environment:
+      - LIVEKIT_FULL_ACCESS_HOMESERVERS=continuwuity.ocd.beauty
+      - LIVEKIT_KEY=${LIVEKIT_KEY}
+      - LIVEKIT_SECRET=${LIVEKIT_SECRET}
+      - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
+
+  navidrome:
+    <<: *default-logging
+    container_name: navidrome
+    image: deluan/navidrome:0.63.2
+    restart: unless-stopped
+    volumes:
+      - /run/navidrome:/run/navidrome
+      - /srv/navidrome/data:/data
+      - /srv/navidrome/music:/music
+      - ./navidrome.toml:/data/navidrome.toml
