@@ -11,6 +11,8 @@ services:
     container_name: beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
+    ports:
+      - 127.0.0.1:8090:8090
     volumes:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
@@ -34,17 +36,13 @@ services:
     container_name: caddy
     image: caddy:2.11.4
     restart: unless-stopped
-    ports:
-      - 80:80
-      - 443:443
+    network_mode: host
     volumes:
       - /run/continuwuity:/run/continuwuity
       - /run/dufs:/run/dufs
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
-      - ./Caddyfile:/etc/caddy/Caddyfile
-    extra_hosts:
-      - host.docker.internal:host-gateway
 
   continuwuity:
     <<: *default-logging
@@ -58,34 +56,8 @@ services:
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
     volumes:
       - /run/continuwuity:/run/continuwuity
-      - /srv/conduwuit:/var/lib/conduwuit
       - ./continuwuity.toml:/etc/continuwuity.toml
-
-  livekit-server:
-    <<: *default-logging
-    container_name: livekit-server
-    image: livekit/livekit-server:v1.13.6
-    restart: unless-stopped
-    command:
-      - --config
-      - /etc/livekit.yaml
-    environment:
-      - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
-      - LIVEKIT_NODE=${LIVEKIT_NODE}
-    volumes:
-      - ./livekit.yaml:/etc/livekit.yaml
-    network_mode: host
-
-  lk-jwt-service:
-    <<: *default-logging
-    container_name: lk-jwt-service
-    image: ghcr.io/element-hq/lk-jwt-service:0.7.0
-    restart: unless-stopped
-    environment:
-      - LIVEKIT_FULL_ACCESS_HOMESERVERS=continuwuity.ocd.beauty
-      - LIVEKIT_KEY=${LIVEKIT_KEY}
-      - LIVEKIT_SECRET=${LIVEKIT_SECRET}
-      - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
+      - /srv/continuwuity:/var/lib/continuwuity
 
   dufs:
     <<: *default-logging
@@ -103,6 +75,17 @@ services:
       - /run/dufs:/run/dufs
       - /srv/navidrome/music:/music
 
+  gatus:
+    <<: *default-logging
+    container_name: gatus
+    image: twinproduction/gatus:v5.36.0
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:8080:8080
+    volumes:
+      - ./gatus-config.yaml:/config/config.yaml
+      - /srv/gatus/data:/data
+
   gonic:
     <<: *default-logging
     container_name: gonic
@@ -113,17 +96,38 @@ services:
       - GONIC_PODCAST_PATH=/podcast
       - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_CACHE_PATH=/cache
+    ports:
+      - 127.0.0.1:80:80
     volumes:
-      - /srv/navidrome/music:/music
+      - /srv/gonic/music:/music
       - /srv/gonic/podcast:/podcast
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/cache:/cache
 
-  gatus:
+  livekit-server:
     <<: *default-logging
-    container_name: gatus
-    image: twinproduction/gatus:v5.36.0
+    container_name: livekit-server
+    image: livekit/livekit-server:v1.13.6
     restart: unless-stopped
+    command:
+      - --config
+      - /etc/livekit.yaml
+    environment:
+      - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
+      - LIVEKIT_NODE=${LIVEKIT_NODE}
+    network_mode: host
     volumes:
-      - /srv/gatus/data:/data
-      - ./gatus-config.yaml:/config/config.yaml
+      - ./livekit.yaml:/etc/livekit.yaml
+
+  lk-jwt-service:
+    <<: *default-logging
+    container_name: lk-jwt-service
+    image: ghcr.io/element-hq/lk-jwt-service:0.7.0
+    restart: unless-stopped
+    environment:
+      - LIVEKIT_FULL_ACCESS_HOMESERVERS=continuwuity.ocd.beauty
+      - LIVEKIT_KEY=${LIVEKIT_KEY}
+      - LIVEKIT_SECRET=${LIVEKIT_SECRET}
+      - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
+    ports:
+      - 127.0.0.1:8081:8080

@@ -1,6 +1,6 @@
 [global]
 allow_federation = false
-database_path = "/var/lib/conduwuit"
+database_path = "/var/lib/continuwuity"
 request_ip_source = "x_forwarded_for"
 server_name = "continuwuity.ocd.beauty"
 unix_socket_path = "/run/continuwuity/continuwuity.sock"

@@ -1,5 +1,5 @@
 beszel.ocd.beauty {
-    reverse_proxy beszel:8090
+    reverse_proxy 127.0.0.1:8090
 }
 
 continuwuity.ocd.beauty {
@@ -8,13 +8,13 @@ continuwuity.ocd.beauty {
 
 livekit-server.continuwuity.ocd.beauty {
     @lk-jwt-service path /sfu/get* /healthz* /get_token*
-    reverse_proxy @lk-jwt-service lk-jwt-service:8080
+    reverse_proxy @lk-jwt-service 127.0.0.1:8081
 
-    reverse_proxy host.docker.internal:7880
+    reverse_proxy 127.0.0.1:7880
 }
 
 gonic.ocd.beauty {
-    reverse_proxy gonic:80
+    reverse_proxy 127.0.0.1:80
 }
 
 dufs.ocd.beauty {
@@ -22,5 +22,5 @@ dufs.ocd.beauty {
 }
 
 gatus.ocd.beauty {
-    reverse_proxy gatus:8080
+    reverse_proxy 127.0.0.1:8080
 }
