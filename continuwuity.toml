@@ -5,13 +5,11 @@ request_ip_source = "x_forwarded_for"
 server_name = "continuwuity.ocd.beauty"
 unix_socket_path = "/run/continuwuity/continuwuity.sock"
 unix_socket_perms = 0o777
+turn_uris = [
+    "turn:continuwuity.ocd.beauty:3478?transport=udp",
+    "turn:continuwuity.ocd.beauty:3478?transport=tcp"
+]
 
 [global.well_known]
 server = "continuwuity.ocd.beauty:443"
 client = "https://continuwuity.ocd.beauty"
-
-[global.turn]
-uris = [
-    "turn:continuwuity.ocd.beauty:3478?transport=udp",
-    "turn:continuwuity.ocd.beauty:3478?transport=tcp"
-]
