@@ -39,6 +39,7 @@ services:
       - 443:443
     volumes:
       - /run/continuwuity:/run/continuwuity
+      - /run/dufs:/run/dufs
       - /run/copyparty:/run/copyparty
       - /run/navidrome:/run/navidrome
       - /srv/caddy/config:/config
