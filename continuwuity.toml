@@ -7,6 +7,6 @@ unix_socket_path = "/run/continuwuity/continuwuity.sock"
 unix_socket_perms = 0o777
 
 [global.matrix_rtc]
-fosi = [
+foci = [
     { livekit_service_url = "https://livekit-server.continuwuity.ocd.beauty", type = "livekit" }
 ]
