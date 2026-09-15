@@ -97,7 +97,7 @@ services:
       - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_CACHE_PATH=/cache
     ports:
-      - 127.0.0.1:80:80
+      - 127.0.0.1:81:80
     volumes:
       - /srv/gonic/music:/music
       - /srv/gonic/podcast:/podcast
