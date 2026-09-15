@@ -21,6 +21,10 @@ navidrome.ocd.beauty {
     reverse_proxy unix//run/navidrome/navidrome.sock
 }
 
+dufs.ocd.beauty {
+    reverse_proxy unix//run/dufs/dufs.sock
+}
+
 uptime-kuma.ocd.beauty {
     reverse_proxy uptime-kuma:3001
 }
