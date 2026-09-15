@@ -60,7 +60,7 @@ services:
     environment:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
-      - CONTINUWUITY_TURN_SECRET=${CONTINUWUITY_TURN__SECRET}
+      - CONTINUWUITY_TURN_SECRET=${CONTINUWUITY_TURN_SECRET}
     volumes:
       - /run/continuwuity:/run/continuwuity
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
@@ -78,10 +78,10 @@ services:
       - -n
       - --log-file=stdout
       - --fingerprint
-      - --lt-cred-mech
       - --use-auth-secret
       - --static-auth-secret=${COTURN_STATIC_AUTH_SECRET}
       - --realm=continuwuity.ocd.beauty
+      - --external-ip=${COTURN_EXTERNAL_IP}
     network_mode: host
     healthcheck:
       test: ['CMD-SHELL', 'turnutils_stunclient -p 3478 localhost || exit 1']
@@ -92,10 +92,8 @@ services:
     image: sigoden/dufs:v0.46.0
     restart: unless-stopped
     command:
-      - --bind
-      - /run/dufs/dufs.sock
-      - --auth
-      - ${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
+      - --bind=/run/dufs/dufs.sock
+      - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
       - --allow-all
       - /music
     volumes:
