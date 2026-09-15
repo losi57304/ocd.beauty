@@ -7,6 +7,7 @@ unix_socket_path = "/run/continuwuity/continuwuity.sock"
 unix_socket_perms = 0o777
 
 [global.well_known]
+server = "continuwuity.ocd.beauty:443"
 client = "https://continuwuity.ocd.beauty"
 
 [global.matrix_rtc]
