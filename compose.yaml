@@ -133,3 +133,5 @@ services:
       - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
     ports:
       - 127.0.0.1:8081:8080
+    extra_hosts:
+      - "continuwuity.ocd.beauty:host-gateway"
