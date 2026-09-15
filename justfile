@@ -5,12 +5,13 @@ alias enc := encrypt
     sops decrypt .enc.env >.env
 
 @deploy:
+    docker compose down
+
     git pull
 
     just decrypt
 
-    docker compose pull
-    docker compose up -d --remove-orphans
+    docker compose up -d
 
 @encrypt:
     sops encrypt .env >.enc.env

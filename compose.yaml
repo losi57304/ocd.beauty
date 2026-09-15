@@ -73,7 +73,7 @@ services:
       - /music
     volumes:
       - /run/dufs:/run/dufs
-      - /srv/navidrome/music:/music
+      - /srv/gonic/music:/music
 
   gatus:
     <<: *default-logging
@@ -96,10 +96,12 @@ services:
       - GONIC_PODCAST_PATH=/podcast
       - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_CACHE_PATH=/cache
+      - GONIC_DB_PATH=/data/gonic.db
     ports:
       - 127.0.0.1:81:80
     volumes:
       - /srv/gonic/music:/music
+      - /srv/gonic/data:/data
       - /srv/gonic/podcast:/podcast
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/cache:/cache
