@@ -87,14 +87,6 @@ services:
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
 
-  uptime-kuma:
-    <<: *default-logging
-    container_name: uptime-kuma
-    image: louislam/uptime-kuma:2.5.4
-    restart: unless-stopped
-    volumes:
-      - /srv/uptime-kuma:/app/data
-
   dufs:
     <<: *default-logging
     container_name: dufs
