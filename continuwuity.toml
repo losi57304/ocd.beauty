@@ -6,6 +6,7 @@ server_name = "continuwuity.ocd.beauty"
 unix_socket_path = "/run/continuwuity/continuwuity.sock"
 unix_socket_perms = 0o777
 
-[[global.matrix_rtc.foci]]
-livekit_service_url = "https://livekit-server.continuwuity.ocd.beauty"
-type = "livekit"
+[global.matrix_rtc]
+fosi = [
+    { livekit_service_url = "https://livekit-server.continuwuity.ocd.beauty", type = "livekit" }
+]

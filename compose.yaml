@@ -52,7 +52,7 @@ services:
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
     restart: unless-stopped
     command:
-     - /sbin/conduwuit
+      - /sbin/conduwuit
     environment:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
