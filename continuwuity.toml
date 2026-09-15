@@ -1,10 +1,13 @@
 [global]
 allow_federation = false
-database_path = "/var/lib/continuwuity"
+database_path = "/var/lib/conduwuit"
 request_ip_source = "x_forwarded_for"
 server_name = "continuwuity.ocd.beauty"
 unix_socket_path = "/run/continuwuity/continuwuity.sock"
 unix_socket_perms = 0o777
+
+[global.well_known]
+client = "https://continuwuity.ocd.beauty"
 
 [global.matrix_rtc]
 foci = [
