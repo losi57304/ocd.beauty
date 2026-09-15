@@ -40,7 +40,6 @@ services:
     volumes:
       - /run/continuwuity:/run/continuwuity
       - /run/dufs:/run/dufs
-      - /run/copyparty:/run/copyparty
       - /run/navidrome:/run/navidrome
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
@@ -62,20 +61,6 @@ services:
       - /run/continuwuity:/run/continuwuity
       - /srv/conduwuit:/var/lib/conduwuit
       - ./continuwuity.toml:/etc/continuwuity.toml
-
-  copyparty:
-    <<: *default-logging
-    container_name: copyparty
-    image: copyparty/ac:1.20.23
-    restart: unless-stopped
-    command:
-      - -a
-      - ${COPYPARTY_USER}:${COPYPARTY_PASSWORD}
-    volumes:
-      - /run/copyparty:/run/copyparty
-      - /srv/copyparty/cfg:/cfg
-      - /srv/navidrome/music:/music
-      - ./copyparty.conf:/cfg/copyparty.conf
 
   livekit-server:
     <<: *default-logging

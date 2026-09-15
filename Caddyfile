@@ -6,10 +6,6 @@ continuwuity.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
 
-copyparty.ocd.beauty {
-    reverse_proxy unix//run/copyparty/copyparty.sock
-}
-
 livekit-server.continuwuity.ocd.beauty {
     @lk-jwt-service path /sfu/get* /healthz* /get_token*
     reverse_proxy @lk-jwt-service lk-jwt-service:8080
