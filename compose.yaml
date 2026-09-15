@@ -65,6 +65,9 @@ services:
       - /run/continuwuity:/run/continuwuity
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /srv/continuwuity:/var/lib/continuwuity
+      - /bin/busybox:/busybox:ro
+    healthcheck:
+      test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
   coturn:
     <<: *default-logging
@@ -89,15 +92,18 @@ services:
     image: sigoden/dufs:v0.46.0
     restart: unless-stopped
     command:
-      - -b
+      - --bind
       - /run/dufs/dufs.sock
-      - -a
+      - --auth
       - ${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
-      - -A
+      - --allow-all
       - /music
     volumes:
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
+      - /bin/busybox:/busybox:ro
+    healthcheck:
+      test: ["CMD", "/busybox", "test", "-S", "/run/dufs/dufs.sock"]
 
   gonic:
     <<: *default-logging
