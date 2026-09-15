@@ -18,7 +18,7 @@ navidrome.ocd.beauty {
 }
 
 gonic.ocd.beauty {
-    reverse_proxy gonic:4747
+    reverse_proxy gonic:80
 }
 
 dufs.ocd.beauty {
