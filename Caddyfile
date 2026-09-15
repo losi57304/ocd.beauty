@@ -17,6 +17,10 @@ navidrome.ocd.beauty {
     reverse_proxy unix//run/navidrome/navidrome.sock
 }
 
+gonic.ocd.beauty {
+    reverse_proxy gonic:4747
+}
+
 dufs.ocd.beauty {
     reverse_proxy unix//run/dufs/dufs.sock
 }

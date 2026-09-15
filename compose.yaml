@@ -122,3 +122,19 @@ services:
     volumes:
       - /run/dufs:/run/dufs
       - /srv/navidrome/music:/music
+
+  gonic:
+    <<: *default-logging
+    container_name: gonic
+    image: sentriz/gonic:8df10c3
+    restart: unless-stopped
+    environment:
+      - GONIC_MUSIC_PATH=/music
+      - GONIC_PODCAST_PATH=/podcast
+      - GONIC_PLAYLISTS_PATH=/playlists
+      - GONIC_CACHE_PATH=/cache
+    volumes:
+      - /srv/navidrome/music:/music
+      - /srv/gonic/podcast:/podcast
+      - /srv/gonic/playlists:/playlists
+      - /srv/gonic/cache:/cache
