@@ -120,3 +120,19 @@ services:
     restart: unless-stopped
     volumes:
       - /srv/uptime-kuma:/app/data
+
+  dufs:
+    <<: *default-logging
+    container_name: dufs
+    image: sigoden/dufs:v0.46.0
+    restart: unless-stopped
+    command:
+      - -b
+      - /run/dufs/dufs.sock
+      - -a
+      - ${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
+      - -A
+      - /music
+    volumes:
+      - /run/dufs:/run/dufs
+      - /srv/navidrome/music:/music
