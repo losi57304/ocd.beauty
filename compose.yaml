@@ -65,8 +65,6 @@ services:
       - /run/continuwuity:/run/continuwuity
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /srv/continuwuity:/var/lib/continuwuity
-    healthcheck:
-      test: ['CMD-SHELL', 'test -S /run/continuwuity/continuwuity.sock || exit 1']
 
   coturn:
     <<: *default-logging
@@ -100,8 +98,6 @@ services:
     volumes:
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
-    healthcheck:
-      test: ['CMD-SHELL', 'test -S /run/dufs/dufs.sock || exit 1']
 
   gonic:
     <<: *default-logging
