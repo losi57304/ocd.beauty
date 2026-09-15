@@ -126,3 +126,12 @@ services:
       - /srv/gonic/podcast:/podcast
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/cache:/cache
+
+  gatus:
+    <<: *default-logging
+    container_name: gatus
+    image: twinproduction/gatus:v5.36.0
+    restart: unless-stopped
+    volumes:
+      - /srv/gatus/data:/data
+      - ./gatus-config.yaml:/config/config.yaml

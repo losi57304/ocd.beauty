@@ -24,3 +24,7 @@ dufs.ocd.beauty {
 uptime-kuma.ocd.beauty {
     reverse_proxy uptime-kuma:3001
 }
+
+gatus.ocd.beauty {
+    reverse_proxy gatus:8080
+}

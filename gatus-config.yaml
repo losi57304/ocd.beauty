@@ -1,0 +1,30 @@
+endpoints:
+  - name: Gonic
+    url: https://gonic.ocd.beauty
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Dufs
+    url: https://dufs.ocd.beauty
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Beszel
+    url: https://beszel.ocd.beauty
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: Continuwuity
+    url: https://continuwuity.ocd.beauty
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: LiveKit Authorization Service
+    url: https://livekit-server.continuwuity.ocd.beauty/healthz
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: LiveKit Server
+    url: https://livekit-server.continuwuity.ocd.beauty
+    conditions:
+      - "[STATUS] == 200"
