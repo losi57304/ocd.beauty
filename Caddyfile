@@ -13,10 +13,6 @@ livekit-server.continuwuity.ocd.beauty {
     reverse_proxy host.docker.internal:7880
 }
 
-navidrome.ocd.beauty {
-    reverse_proxy unix//run/navidrome/navidrome.sock
-}
-
 gonic.ocd.beauty {
     reverse_proxy gonic:80
 }

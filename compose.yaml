@@ -40,7 +40,6 @@ services:
     volumes:
       - /run/continuwuity:/run/continuwuity
       - /run/dufs:/run/dufs
-      - /run/navidrome:/run/navidrome
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
       - ./Caddyfile:/etc/caddy/Caddyfile
@@ -87,17 +86,6 @@ services:
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit-server.continuwuity.ocd.beauty
-
-  navidrome:
-    <<: *default-logging
-    container_name: navidrome
-    image: deluan/navidrome:0.63.2
-    restart: unless-stopped
-    volumes:
-      - /run/navidrome:/run/navidrome
-      - /srv/navidrome/data:/data
-      - /srv/navidrome/music:/music
-      - ./navidrome.toml:/data/navidrome.toml
 
   uptime-kuma:
     <<: *default-logging
