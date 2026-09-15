@@ -60,7 +60,7 @@ services:
     environment:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
-      - CONTINUWUITY_TURN__SECRET=${CONTINUWUITY_TURN__SECRET}
+      - CONTINUWUITY_TURN_SECRET=${CONTINUWUITY_TURN__SECRET}
     volumes:
       - /run/continuwuity:/run/continuwuity
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
