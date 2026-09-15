@@ -6,13 +6,6 @@ continuwuity.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
 
-livekit-server.continuwuity.ocd.beauty {
-    @lk-jwt-service path /sfu/get* /healthz* /get_token*
-    reverse_proxy @lk-jwt-service 127.0.0.1:8081
-
-    reverse_proxy 127.0.0.1:7880
-}
-
 gonic.ocd.beauty {
     reverse_proxy 127.0.0.1:81
 }
