@@ -13,3 +13,4 @@ unix_socket_perms = 0o777
 [global.well_known]
 client = "https://continuwuity.ocd.beauty"
 server = "continuwuity.ocd.beauty:443"
+support_email = "320689555+losi57304@users.noreply.github.com"
