@@ -17,7 +17,7 @@ services:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
     healthcheck:
-      test: ['CMD', '/beszel', 'health', '--url', 'http://localhost:8090']
+      test: ["CMD", "/beszel", "health", "--url", "http://localhost:8090"]
 
   beszel-agent:
     <<: *default-logging
@@ -33,7 +33,7 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
     healthcheck:
-      test: ['CMD', '/agent', 'health']
+      test: ["CMD", "/agent", "health"]
 
   caddy:
     <<: *default-logging
@@ -42,13 +42,13 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - /run/continuwuity:/run/continuwuity
       - /run/dufs:/run/dufs
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
     healthcheck:
-      test: ['CMD-SHELL', 'wget -q --spider http://localhost:2019/config || exit 1']
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost/health || exit 1"]
 
   continuwuity:
     <<: *default-logging
@@ -62,10 +62,10 @@ services:
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
       - CONTINUWUITY_TURN_SECRET=${CONTINUWUITY_TURN_SECRET}
     volumes:
-      - /run/continuwuity:/run/continuwuity
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
-      - /srv/continuwuity:/var/lib/continuwuity
       - /bin/busybox:/busybox:ro
+      - /run/continuwuity:/run/continuwuity
+      - /srv/continuwuity:/var/lib/continuwuity
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
@@ -84,7 +84,7 @@ services:
       - --external-ip=${COTURN_EXTERNAL_IP}
     network_mode: host
     healthcheck:
-      test: ['CMD-SHELL', 'turnutils_stunclient -p 3478 localhost || exit 1']
+      test: ["CMD-SHELL", "turnutils_stunclient -p 3478 localhost || exit 1"]
 
   dufs:
     <<: *default-logging
@@ -92,14 +92,14 @@ services:
     image: sigoden/dufs:v0.46.0
     restart: unless-stopped
     command:
-      - --bind=/run/dufs/dufs.sock
-      - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
       - --allow-all
+      - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
+      - --bind=/run/dufs/dufs.sock
       - /music
     volumes:
+      - /bin/busybox:/busybox:ro
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
-      - /bin/busybox:/busybox:ro
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/dufs/dufs.sock"]
 
@@ -109,18 +109,18 @@ services:
     image: sentriz/gonic:8df10c3
     restart: unless-stopped
     environment:
-      - GONIC_MUSIC_PATH=/music
-      - GONIC_PODCAST_PATH=/podcast
-      - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_CACHE_PATH=/cache
       - GONIC_DB_PATH=/data/gonic.db
+      - GONIC_MUSIC_PATH=/music
+      - GONIC_PLAYLISTS_PATH=/playlists
+      - GONIC_PODCAST_PATH=/podcast
     ports:
       - 127.0.0.1:81:80
     volumes:
-      - /srv/gonic/music:/music
-      - /srv/gonic/data:/data
-      - /srv/gonic/podcast:/podcast
-      - /srv/gonic/playlists:/playlists
       - /srv/gonic/cache:/cache
+      - /srv/gonic/data:/data
+      - /srv/gonic/music:/music
+      - /srv/gonic/playlists:/playlists
+      - /srv/gonic/podcast:/podcast
     healthcheck:
-      test: ['CMD-SHELL', 'wget -q --spider http://localhost:80 || exit 1']
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80 || exit 1"]

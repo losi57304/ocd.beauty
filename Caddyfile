@@ -1,3 +1,7 @@
+ocd.beauty {
+    respond /health "OK" 200
+}
+
 beszel.ocd.beauty {
     reverse_proxy 127.0.0.1:8090
 }
@@ -6,10 +10,10 @@ continuwuity.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
 
-gonic.ocd.beauty {
-    reverse_proxy 127.0.0.1:81
-}
-
 dufs.ocd.beauty {
     reverse_proxy unix//run/dufs/dufs.sock
+}
+
+gonic.ocd.beauty {
+    reverse_proxy 127.0.0.1:81
 }
