@@ -2,18 +2,26 @@ ocd.beauty {
     respond /health "OK" 200
 }
 
-beszel.ocd.beauty {
-    reverse_proxy 127.0.0.1:8090
-}
-
-continuwuity.ocd.beauty {
+matrix.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
 
-dufs.ocd.beauty {
+metrics.ocd.beauty {
+    reverse_proxy beszel:8090
+}
+
+files.music.ocd.beauty {
     reverse_proxy unix//run/dufs/dufs.sock
 }
 
-gonic.ocd.beauty {
-    reverse_proxy 127.0.0.1:81
+music.ocd.beauty {
+    reverse_proxy gonic:80
+}
+
+photos.ocd.beauty {
+    reverse_proxy ente-server:8080
+}
+
+s3.photos.ocd.beauty {
+    reverse_proxy garage:3900
 }
