@@ -1,0 +1,51 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  dufs:
+    <<: *default-logging
+    container_name: dufs
+    image: sigoden/dufs:v0.46.0
+    restart: unless-stopped
+    command:
+      - --allow-all
+      - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
+      - --bind=/run/dufs/dufs.sock
+      - /music
+    volumes:
+      - /bin/busybox:/busybox:ro
+      - /run/dufs:/run/dufs
+      - /srv/gonic/music:/music
+    healthcheck:
+      test: ["CMD", "/busybox", "test", "-S", "/run/dufs/dufs.sock"]
+
+  gonic:
+    <<: *default-logging
+    container_name: gonic
+    image: sentriz/gonic:8df10c3
+    restart: unless-stopped
+    environment:
+      - GONIC_CACHE_PATH=/cache
+      - GONIC_DB_PATH=/data/gonic.db
+      - GONIC_MUSIC_PATH=/music
+      - GONIC_PLAYLISTS_PATH=/playlists
+      - GONIC_PODCAST_PATH=/podcast
+    ports:
+      - 127.0.0.1:81:80
+    volumes:
+      - /srv/gonic/cache:/cache
+      - /srv/gonic/data:/data
+      - /srv/gonic/music:/music
+      - /srv/gonic/playlists:/playlists
+      - /srv/gonic/podcast:/podcast
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:80 || exit 1"]
+
+networks:
+  default:
+    name: proxy
+    external: true
