@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  continuwuity:
+  matrix-continuwuity:
     <<: *default-logging
-    container_name: continuwuity
+    container_name: matrix-continuwuity
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
     restart: unless-stopped
     command:
@@ -24,9 +24,9 @@ services:
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
-  lk-jwt-service:
+  matrix-lk-jwt-service:
     <<: *default-logging
-    container_name: lk-jwt-service
+    container_name: matrix-lk-jwt-service
     image: ghcr.io/element-hq/lk-jwt-service:latest
     restart: unless-stopped
     environment:
@@ -35,9 +35,9 @@ services:
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
 
-  livekit-server:
+  matrix-livekit-server:
     <<: *default-logging
-    container_name: livekit-server
+    container_name: matrix-livekit-server
     image: livekit/livekit-server:v1.13.6
     restart: unless-stopped
     command:

@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  dufs:
+  music-dufs:
     <<: *default-logging
-    container_name: dufs
+    container_name: music-dufs
     image: sigoden/dufs:v0.46.0
     restart: unless-stopped
     command:
@@ -23,9 +23,9 @@ services:
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/dufs/dufs.sock"]
 
-  gonic:
+  music-gonic:
     <<: *default-logging
-    container_name: gonic
+    container_name: music-gonic
     image: sentriz/gonic:8df10c3
     restart: unless-stopped
     environment:

@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  beszel:
+  metrics-beszel:
     <<: *default-logging
-    container_name: beszel
+    container_name: metrics-beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
     volumes:
@@ -17,9 +17,9 @@ services:
     healthcheck:
       test: ["CMD", "/beszel", "health", "--url", "http://localhost:8090"]
 
-  beszel-agent:
+  metrics-beszel-agent:
     <<: *default-logging
-    container_name: beszel-agent
+    container_name: metrics-beszel-agent
     image: henrygd/beszel-agent:0.19.0
     restart: unless-stopped
     environment:
