@@ -43,6 +43,8 @@ services:
     environment:
       - ENTE_DB_HOST=photos-postgres
       - ENTE_DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ENTE_DB_NAME=ente_db
+      - ENTE_DB_USER=pguser
       - BUCKET_KEY=${BUCKET_KEY}
       - BUCKET_SECRET=${BUCKET_SECRET}
     volumes:
