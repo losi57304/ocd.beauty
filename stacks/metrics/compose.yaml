@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  metrics-beszel:
+  beszel:
     <<: *default-logging
-    container_name: metrics-beszel
+    container_name: beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
     volumes:
@@ -23,7 +23,7 @@ services:
     image: henrygd/beszel-agent:0.19.0
     restart: unless-stopped
     environment:
-      - HUB_URL=http://metrics-beszel:8090
+      - HUB_URL=http://beszel:8090
       - KEY=${BESZEL_AGENT_KEY}
       - LISTEN=/beszel_socket/beszel.sock
       - TOKEN=${BESZEL_AGENT_TOKEN}
@@ -31,7 +31,7 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
-      - metrics-beszel
+      - beszel
     healthcheck:
       test: ["CMD", "/agent", "health"]
 
