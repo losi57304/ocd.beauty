@@ -19,7 +19,7 @@ services:
     volumes:
       - /srv/postgres:/var/lib/postgresql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U pguser -d ente_db"]
 
   photos-garage:
     <<: *default-logging
@@ -47,12 +47,12 @@ services:
       - BUCKET_SECRET=${BUCKET_SECRET}
     volumes:
       - ./museum.yaml:/museum.yaml:ro
-      - /srv/museum/data:/data:ro
+      - /srv/ente-server/data:/data:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
     depends_on:
-      - photos-postgres
       - photos-garage
+      - photos-postgres
 
 networks:
   default:

@@ -27,7 +27,7 @@ services:
   matrix-lk-jwt-service:
     <<: *default-logging
     container_name: matrix-lk-jwt-service
-    image: ghcr.io/element-hq/lk-jwt-service:latest
+    image: ghcr.io/element-hq/lk-jwt-service:0.7.0
     restart: unless-stopped
     environment:
       - LIVEKIT_FULL_ACCESS_HOMESERVERS=matrix.ocd.beauty
