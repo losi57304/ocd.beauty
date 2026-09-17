@@ -35,9 +35,9 @@ services:
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
 
-  livekit:
+  livekit-server:
     <<: *default-logging
-    container_name: livekit
+    container_name: livekit-server
     image: livekit/livekit-server:v1.13.6
     restart: unless-stopped
     command:
