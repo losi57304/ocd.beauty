@@ -51,8 +51,8 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
     depends_on:
-      - postgres
-      - garage
+      - photos-postgres
+      - photos-garage
 
 networks:
   default:
