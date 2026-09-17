@@ -23,7 +23,7 @@ services:
     image: henrygd/beszel-agent:0.19.0
     restart: unless-stopped
     environment:
-      - HUB_URL=http://beszel:8090
+      - HUB_URL=http://metrics-beszel:8090
       - KEY=${BESZEL_AGENT_KEY}
       - LISTEN=/beszel_socket/beszel.sock
       - TOKEN=${BESZEL_AGENT_TOKEN}
