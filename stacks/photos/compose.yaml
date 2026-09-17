@@ -43,8 +43,8 @@ services:
     environment:
       - ENTE_DB_HOST=photos-postgres
       - ENTE_DB_PASSWORD=${POSTGRES_PASSWORD}
-      - BUCKET_KEY=${ENTE_SERVER_BUCKET_KEY}
-      - BUCKET_SECRET=${ENTE_SERVER_BUCKET_SECRET}
+      - BUCKET_KEY=${BUCKET_KEY}
+      - BUCKET_SECRET=${BUCKET_SECRET}
     volumes:
       - ./museum.yaml:/museum.yaml:ro
       - /srv/museum/data:/data:ro
