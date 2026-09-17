@@ -32,6 +32,8 @@ services:
       - ./garage.toml:/etc/garage.toml:ro
       - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
+    healthcheck:
+      test: ["CMD", "/garage", "-c", "/etc/garage.toml", "status"]
 
   ente-server:
     <<: *default-logging
@@ -46,6 +48,8 @@ services:
     volumes:
       - ./museum.yaml:/museum.yaml:ro
       - /srv/museum/data:/data:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
     depends_on:
       - postgres
       - garage
