@@ -12,9 +12,9 @@ services:
     image: postgres:18.6
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_USER=pguser
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB=ente_db
       - PGDATA=/var/lib/postgresql/18/data
     volumes:
       - /srv/postgres:/var/lib/postgresql
@@ -24,7 +24,7 @@ services:
   garage:
     <<: *default-logging
     container_name: garage
-    image: dxflrs/garage:v1.1.0
+    image: dxflrs/garage:v2.4.1
     restart: unless-stopped
     environment:
       - RPC_SECRET=${GARAGE_RPC_SECRET}
@@ -40,10 +40,7 @@ services:
     restart: unless-stopped
     environment:
       - ENTE_DB_HOST=postgres
-      - ENTE_DB_PORT=5432
-      - ENTE_DB_USER=${POSTGRES_USER}
       - ENTE_DB_PASSWORD=${POSTGRES_PASSWORD}
-      - ENTE_DB_NAME=${POSTGRES_DB}
       - BUCKET_KEY=${ENTE_SERVER_BUCKET_KEY}
       - BUCKET_SECRET=${ENTE_SERVER_BUCKET_SECRET}
     volumes:

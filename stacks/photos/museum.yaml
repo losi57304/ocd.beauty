@@ -1,10 +1,9 @@
 s3:
   are_buckets_non_compliant: true
   use_path_style_addressing: true
-
-b2-eu-cen:
-  endpoint: https://s3.photos.ocd.beauty
-  region: garage
-  bucket: b2-eu-cen
-  key: ${GARAGE_KEY}
-  secret: ${GARAGE_SECRET}
+  b2-eu-cen:
+    endpoint: https://s3.photos.ocd.beauty
+    region: garage
+    bucket: b2-eu-cen
+    key: ${GARAGE_KEY}
+    secret: ${GARAGE_SECRET}
