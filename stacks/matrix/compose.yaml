@@ -16,7 +16,6 @@ services:
     environment:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
-      - CONTINUWUITY_TURN_SECRET=${CONTINUWUITY_TURN_SECRET}
     volumes:
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /bin/busybox:/busybox:ro
@@ -25,22 +24,30 @@ services:
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
-  coturn:
+  lk-jwt-service:
     <<: *default-logging
-    container_name: coturn
-    image: coturn/coturn:4.18.0
+    container_name: lk-jwt-service
+    image: ghcr.io/element-hq/lk-jwt-service:latest
+    restart: unless-stopped
+    environment:
+      - LIVEKIT_FULL_ACCESS_HOMESERVERS=matrix.ocd.beauty
+      - LIVEKIT_KEY=${LIVEKIT_KEY}
+      - LIVEKIT_SECRET=${LIVEKIT_SECRET}
+      - LIVEKIT_URL=wss://livekit.ocd.beauty
+
+  livekit:
+    <<: *default-logging
+    container_name: livekit
+    image: livekit/livekit-server:v1.13.6
     restart: unless-stopped
     command:
-      - -n
-      - --log-file=stdout
-      - --fingerprint
-      - --use-auth-secret
-      - --static-auth-secret=${COTURN_STATIC_AUTH_SECRET}
-      - --realm=continuwuity.ocd.beauty
-      - --external-ip=${COTURN_EXTERNAL_IP}
+      - --config=/etc/livekit.yaml
+    environment:
+      - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
+      - LIVEKIT_NODE=${LIVEKIT_NODE}
     network_mode: host
-    healthcheck:
-      test: ["CMD-SHELL", "turnutils_stunclient -p 3478 localhost || exit 1"]
+    volumes:
+      - ./livekit.yaml:/etc/livekit.yaml:ro
 
 networks:
   default:

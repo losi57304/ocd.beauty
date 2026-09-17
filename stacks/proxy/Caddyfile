@@ -6,6 +6,13 @@ matrix.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
 
+livekit.ocd.beauty {
+    @lk-jwt-service path /sfu/get* /healthz* /get_token*
+    reverse_proxy @lk-jwt-service lk-jwt-service:8081
+
+    reverse_proxy host.docker.gateway:7880
+}
+
 metrics.ocd.beauty {
     reverse_proxy beszel:8090
 }

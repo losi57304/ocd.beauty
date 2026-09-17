@@ -8,5 +8,6 @@ rpc_bind_addr = "[::]:3901"
 rpc_secret = "${RPC_SECRET}"
 
 [s3_api]
+s3_region = "garage"
 s3_bind_addr = "[::]:3900"
 api_bind_addr = "[::]:3902"
