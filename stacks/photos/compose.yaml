@@ -47,6 +47,8 @@ services:
       - ./museum.yaml:/museum.yaml:ro
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
+    env_file:
+      - .env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
     depends_on:
