@@ -36,7 +36,6 @@ services:
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
-      - LIVEKIT_CS_API_URL_OVERRIDES=matrix.ocd.beauty=http://matrix-continuwuity:6167
 
   matrix-livekit-server:
     <<: *default-logging
