@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
     networks:
       default:
-        ipv4_address: 10.10.10.20
+        ipv4_address: 172.18.0.20
     volumes:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
 
@@ -74,4 +74,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: "10.10.10.0/24"
+        - subnet: "172.18.0.0/16"
