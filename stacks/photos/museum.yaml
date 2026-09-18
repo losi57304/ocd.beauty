@@ -1,12 +1,1 @@
 credentials-file: /credentials.yaml
-
-hardcoded-ott:
-  local-domain-suffix: ${ENTE_SERVER_HARDCODED_OTT_LOCAL_DOMAIN_SUFFIX}
-  local-domain-value: ${ENTE_SERVER_HARDCODED_OTT_LOCAL_DOMAIN_VALUE}
-
-key:
-  encryption: ${ENTE_SERVER_KEY_ENCRYPTION}
-  hash: ${ENTE_SERVER_KEY_HASH}
-
-jwt:
-  secret: ${ENTE_SERVER_JWT_SECRET}

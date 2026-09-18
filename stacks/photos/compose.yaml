@@ -43,12 +43,21 @@ services:
     container_name: photos-ente-server
     image: ghcr.io/ente/server:163f45c26f130090abed03649530f53d2d976565
     restart: unless-stopped
+    environment:
+      - ENTE_DB_NAME=${POSTGRES_DB}
+      - ENTE_DB_USER=${POSTGRES_USER}
+      - ENTE_DB_PASSWORD=${POSTGRES_PASSWORD}
+      - ENTE_S3_B2_EU_CEN_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
+      - ENTE_S3_B2_EU_CEN_SECRET=${GARAGE_DEFAULT_SECRET_KEY}
+      - ENTE_HARDCODED_OTT_LOCAL_DOMAIN_SUFFIX=${ENTE_HARDCODED_OTT_LOCAL_DOMAIN_SUFFIX}
+      - ENTE_HARDCODED_OTT_LOCAL_DOMAIN_VALUE=${ENTE_HARDCODED_OTT_LOCAL_DOMAIN_VALUE}
+      - ENTE_KEY_ENCRYPTION=${ENTE_KEY_ENCRYPTION}
+      - ENTE_KEY_HASH=${ENTE_KEY_HASH}
+      - ENTE_JWT_SECRET=${ENTE_JWT_SECRET}
     volumes:
       - ./museum.yaml:/museum.yaml:ro
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
-    env_file:
-      - .env
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
     depends_on:
