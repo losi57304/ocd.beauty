@@ -29,6 +29,8 @@ services:
     container_name: matrix-lk-jwt-service
     image: ghcr.io/element-hq/lk-jwt-service:0.7.0
     restart: unless-stopped
+    extra_hosts:
+      - matrix.ocd.beauty:host-gateway
     environment:
       - LIVEKIT_FULL_ACCESS_HOMESERVERS=matrix.ocd.beauty
       - LIVEKIT_KEY=${LIVEKIT_KEY}

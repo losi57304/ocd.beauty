@@ -10,7 +10,7 @@ livekit.ocd.beauty {
     @lk-jwt-service path /sfu/get* /healthz* /get_token*
     reverse_proxy @lk-jwt-service matrix-lk-jwt-service:8081
 
-    reverse_proxy host.docker.gateway:7880
+    reverse_proxy host.docker.internal:7880
 }
 
 metrics.ocd.beauty {

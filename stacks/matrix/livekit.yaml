@@ -1,2 +1,5 @@
 rtc:
   udp_port: 7882
+
+room:
+  auto_create: false
