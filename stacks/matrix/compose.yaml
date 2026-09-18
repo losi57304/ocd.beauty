@@ -33,6 +33,8 @@ services:
       - /bin/busybox:/busybox:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
+    depends_on:
+      - matrix-unbound
     healthcheck:
       test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
