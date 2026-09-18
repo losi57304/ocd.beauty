@@ -1,4 +1,5 @@
 [global]
+allow_federation = false
 database_path = "/var/lib/continuwuity"
 request_ip_source = "x_forwarded_for"
 server_name = "matrix.ocd.beauty"
