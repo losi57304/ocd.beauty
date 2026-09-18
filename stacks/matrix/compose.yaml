@@ -6,6 +6,17 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
+  matrix-unbound:
+    <<: *default-logging
+    container_name: matrix-unbound
+    image: madnuttah/unbound:1.26.1-0
+    restart: unless-stopped
+    networks:
+      default:
+        ipv4_address: 10.10.10.20
+    volumes:
+      - ./unbound.conf:/etc/unbound/unbound.conf:ro
+
   matrix-continuwuity:
     <<: *default-logging
     container_name: matrix-continuwuity
@@ -17,6 +28,7 @@ services:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
     volumes:
+      - ./continuwuity-resolv.conf:/etc/resolv.conf:ro
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /bin/busybox:/busybox:ro
       - /run/continuwuity:/run/continuwuity
@@ -57,3 +69,7 @@ networks:
   default:
     name: proxy
     external: true
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.10.10.0/24"
