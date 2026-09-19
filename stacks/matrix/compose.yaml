@@ -39,7 +39,7 @@ services:
       - /srv/continuwuity:/var/lib/continuwuity
     labels:
       glance.name: Continuwuity
-      glance.icon: sh:continuwuity
+      glance.icon: sh:continuwuity-light
       glance.id: continuwuity
 
   lk-jwt-service:

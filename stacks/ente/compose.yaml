@@ -64,7 +64,7 @@ services:
       - /srv/ente-server/data:/data:ro
     labels:
       glance.name: Ente
-      glance.icon: si:ente
+      glance.icon: si:ente-light
       glance.id: ente
 
 networks:

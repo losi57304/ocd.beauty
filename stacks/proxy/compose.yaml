@@ -22,7 +22,7 @@ services:
       - /srv/caddy/data:/data
     labels:
       glance.name: Traefik
-      glance.icon: sh:traefik
+      glance.icon: sh:traefik-light
 
 networks:
   default:
