@@ -19,7 +19,7 @@ services:
       - homepage.name=Beszel
       - homepage.href=https://monitoring.ocd.beauty
       - homepage.ping=monitoring.ocd.beauty
-      - homepage.description=Media server
+      - homepage.icon=sh-beszel
 
   monitoring-beszel-agent:
     <<: *default-logging
