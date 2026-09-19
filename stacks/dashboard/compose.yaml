@@ -13,6 +13,7 @@ services:
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=dashboard.ocd.beauty
     volumes:
+      - ./docker.yaml:/app/config/docker.yaml
       - ./settings.yaml:/app/config/settings.yaml
       - /srv/homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
