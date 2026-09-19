@@ -23,8 +23,6 @@ services:
     labels:
       - homepage.group=Ente
       - homepage.name=Garage
-      - homepage.href=https://s3.ente.ocd.beauty
-      - homepage.ping=s3.ente.ocd.beauty
       - homepage.icon=sh-garage
 
   ente-postgres:
