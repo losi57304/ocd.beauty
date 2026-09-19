@@ -55,6 +55,28 @@ pages:
 
       - size: full
         widgets:
+          - type: custom-api
+            url: /api/uptime
+            template: |
+              <div id="greeting-box" style="font-weight: 500; font-size: 1.1rem; padding: 4px 0;"></div>
+              <script>
+                (function() {
+                  const hour = new Date().getHours();
+                  let greeting = "Good night!";
+
+                  if (hour >= 6 && hour < 12) {
+                    greeting = "Good morning!";
+                  } else if (hour >= 12 && hour < 18) {
+                    greeting = "Good afternoon!";
+                  }
+
+                  const el = document.getElementById("greeting-box");
+                  if (el) {
+                    el.textContent = greeting;
+                  }
+                })();
+              </script>
+
           - type: search
             search-engine: google
             autofocus: true
