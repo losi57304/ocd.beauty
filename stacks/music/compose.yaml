@@ -20,10 +20,9 @@ services:
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
     labels:
-      - homepage.group=Services
-      - homepage.name=Dufs
-      - homepage.href=https://files.music.ocd.beauty
-      - homepage.icon=sh-dufs.png
+      - glance.name=Dufs
+      - glance.icon=sh:dufs.png
+      - glance.url=https://files.music.ocd.beauty
 
   gonic:
     <<: *default-logging
@@ -43,10 +42,9 @@ services:
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/podcast:/podcast
     labels:
-      - homepage.group=Services
-      - homepage.name=Gonic
-      - homepage.href=https://music.ocd.beauty
-      - homepage.icon=sh-gonic.png
+      - glance.name=Gonic
+      - glance.icon=sh:gonic.png
+      - glance.url=https://music.ocd.beauty
 
 networks:
   default:

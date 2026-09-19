@@ -6,18 +6,14 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  homepage:
+  glance:
     <<: *default-logging
-    container_name: homepage
-    image: ghcr.io/gethomepage/homepage:latest
-    environment:
-      - HOMEPAGE_ALLOWED_HOSTS=dashboard.ocd.beauty
+    container_name: glance
+    image: glanceapp/glance
+    restart: unless-stopped
     volumes:
-      - ./docker.yaml:/app/config/docker.yaml
-      - ./settings.yaml:/app/config/settings.yaml
-      - ./widgets.yaml:/app/config/widgets.yaml
-      - /srv/homepage/config:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config/glance.yaml:/app/config/glance.yaml:ro
 
 networks:
   default:

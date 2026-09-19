@@ -34,5 +34,5 @@ s3.photos.ocd.beauty {
 }
 
 dashboard.ocd.beauty {
-    reverse_proxy homepage:3000
+    reverse_proxy glance:8080
 }

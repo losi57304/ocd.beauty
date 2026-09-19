@@ -1,8 +1,0 @@
-color: zinc
-
-quicklaunch:
-  searchDescriptions: true
-  hideInternetSearch: true
-  showSearchSuggestions: true
-  hideVisitURL: true
-  provider: google
