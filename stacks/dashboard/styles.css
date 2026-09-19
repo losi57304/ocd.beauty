@@ -1,7 +1,10 @@
+:root {
+    --color-background: transparent !important;
+}
+
 body {
-    background-image: url('/assets/wallpapers.jpg') !important;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/wallpapers.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;
-    --color-background: transparent !important;
 }
