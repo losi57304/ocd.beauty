@@ -76,6 +76,14 @@ pages:
             hour-format: 24h
             hide-location: true
 
+          - type: custom-api
+            height: 200px
+            title: Random Dog
+            cache: 2m
+            url: https://dog.ceo/api/breeds/image/random
+            template: |
+              <img src="{{ .JSON.String "message" }}"></img>
+
           - type: repository
             repository: losi57304/ocd.beauty
             pull-requests-limit: -1
