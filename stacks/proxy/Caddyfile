@@ -33,6 +33,6 @@ s3.photos.ocd.beauty {
     reverse_proxy ente-garage:5432
 }
 
-dashboard.ocd.beauty {
+ocd.beauty {
     reverse_proxy glance:8080
 }
