@@ -43,4 +43,4 @@ services:
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/podcast:/podcast
     healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:80 || exit 1"]
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:81 || exit 1"]
