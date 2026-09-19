@@ -14,7 +14,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/glance/config:/app/config
-      - ./glance.yaml:/app/config.glance.yaml
+      - ./glance.yaml:/app/config/glance.yaml
 
 networks:
   default:
