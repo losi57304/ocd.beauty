@@ -31,6 +31,7 @@ services:
       - GARAGE_DEFAULT_BUCKET=b2-eu-cen
       - GARAGE_DEFAULT_ACCESS_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
       - GARAGE_DEFAULT_SECRET_KEY=${GARAGE_DEFAULT_SECRET_KEY}
+    network_mode: host
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
       - /srv/garage/meta:/var/lib/garage/meta
@@ -54,6 +55,8 @@ services:
       - ENTE_KEY_ENCRYPTION=${ENTE_KEY_ENCRYPTION}
       - ENTE_KEY_HASH=${ENTE_KEY_HASH}
       - ENTE_JWT_SECRET=${ENTE_JWT_SECRET}
+    ports:
+      - 127.0.0.1:8081:8080
     volumes:
       - ./museum.yaml:/museum.yaml:ro
       - ./credentials.yaml:/credentials.yaml:ro
@@ -63,8 +66,3 @@ services:
     depends_on:
       - photos-garage
       - photos-postgres
-
-networks:
-  default:
-    name: proxy
-    external: true

@@ -45,13 +45,12 @@ services:
     container_name: matrix-lk-jwt-service
     image: ghcr.io/element-hq/lk-jwt-service:0.7.0
     restart: unless-stopped
-    extra_hosts:
-      - matrix.ocd.beauty:host-gateway
     environment:
       - LIVEKIT_FULL_ACCESS_HOMESERVERS=matrix.ocd.beauty
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
+    network_mode: host
 
   matrix-livekit-server:
     <<: *default-logging

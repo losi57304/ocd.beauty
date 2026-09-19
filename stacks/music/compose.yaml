@@ -34,6 +34,8 @@ services:
       - GONIC_MUSIC_PATH=/music
       - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_PODCAST_PATH=/podcast
+    ports:
+      - 127.0.0.1:81:80
     volumes:
       - /srv/gonic/cache:/cache
       - /srv/gonic/data:/data
@@ -42,8 +44,3 @@ services:
       - /srv/gonic/podcast:/podcast
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider http://localhost:80 || exit 1"]
-
-networks:
-  default:
-    name: proxy
-    external: true
