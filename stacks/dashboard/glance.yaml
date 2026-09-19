@@ -55,6 +55,8 @@ pages:
 
       - size: full
         widgets:
+          - type: greeting
+
           - type: search
             search-engine: google
             autofocus: true
