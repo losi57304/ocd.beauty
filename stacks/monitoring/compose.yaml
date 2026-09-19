@@ -18,6 +18,7 @@ services:
       - homepage.group=Monitoring
       - homepage.name=Beszel
       - homepage.href=https://monitoring.ocd.beauty
+      - homepage.ping=monitoring.ocd.beauty
       - homepage.description=Media server
 
   monitoring-beszel-agent:
