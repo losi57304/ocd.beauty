@@ -20,6 +20,9 @@ services:
       - /run/dufs:/run/dufs
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
+    labels:
+      glance.name: Traefik
+      glance.icon: sh:traefik
 
 networks:
   default:

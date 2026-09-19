@@ -67,7 +67,7 @@ pages:
               <p class="size-h4 color-paragraph">{{ .JSON.String "text" }}</p>
 
           - type: docker-containers
-            hide-by-default: true
+            hide-by-default: false
 
           - type: videos
             channels:
