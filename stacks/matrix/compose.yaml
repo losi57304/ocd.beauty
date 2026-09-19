@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  unbound:
+  matrix-unbound:
     <<: *default-logging
-    container_name: unbound
+    container_name: matrix-unbound
     image: madnuttah/unbound:1.26.1-0
     restart: unless-stopped
     networks:
