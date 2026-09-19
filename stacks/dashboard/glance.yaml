@@ -11,6 +11,8 @@ theme:
   background-color: 50 1 6
   primary-color: 24 97 58
   negative-color: 209 88 54
+  custom-css-file: /assets/styles.css
+  contrast-multiplier: 2
 
 pages:
   - name: ocd.beauty
@@ -55,9 +57,8 @@ pages:
 
       - size: full
         widgets:
-          - type: custom-api
-            url: /api/uptime
-            template: |
+          - type: html
+            source: |
               <div id="greeting-box" style="font-weight: 500; font-size: 1.1rem; padding: 4px 0;"></div>
               <script>
                 (function() {

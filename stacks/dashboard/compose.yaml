@@ -18,6 +18,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/glance/config:/app/config
       - ./glance.yaml:/app/config/glance.yml
+      - ./styles.css:/assets/styles.css
+      - ./wallpapers.jpg:/assets/wallpapers.jpg
     labels:
       glance.name: Glance
       glance.icon: sh:glance
