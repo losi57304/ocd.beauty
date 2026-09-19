@@ -20,6 +20,12 @@ services:
       - ./garage.toml:/etc/garage.toml:ro
       - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
+    labels:
+      - homepage.group=Ente
+      - homepage.name=Garage
+      - homepage.href=https://s3.ente.ocd.beauty
+      - homepage.ping=s3.ente.ocd.beauty
+      - homepage.icon=sh-garage
 
   ente-postgres:
     <<: *default-logging
@@ -33,6 +39,12 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
     volumes:
       - /srv/postgres:/var/lib/postgresql
+    labels:
+      - homepage.group=Ente
+      - homepage.name=Postgres
+      - homepage.href=https://database.ente.ocd.beauty
+      - homepage.ping=database.ente.ocd.beauty
+      - homepage.icon=sh-postgresql
 
   ente-server:
     <<: *default-logging
@@ -56,6 +68,12 @@ services:
     volumes:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
+    labels:
+      - homepage.group=Ente
+      - homepage.name=Server
+      - homepage.href=https://ente.ocd.beauty
+      - homepage.ping=ente.ocd.beauty
+      - homepage.icon=sh-ente-photos
 
 networks:
   default:

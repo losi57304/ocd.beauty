@@ -34,6 +34,12 @@ services:
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
+    labels:
+      - homepage.group=Matrix
+      - homepage.name=Continuwuity
+      - homepage.href=https://matrix.ocd.beauty
+      - homepage.ping=matrix.ocd.beauty
+      - homepage.icon=sh-continuwuity
 
   matrix-lk-jwt-service:
     <<: *default-logging
