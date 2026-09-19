@@ -1,7 +1,3 @@
-ocd.beauty {
-    respond /health "OK" 200
-}
-
 matrix.ocd.beauty {
     reverse_proxy unix//run/continuwuity/continuwuity.sock
 }
