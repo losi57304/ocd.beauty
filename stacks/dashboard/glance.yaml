@@ -6,6 +6,7 @@ auth:
 
 server:
   proxied: true
+  assets-path: /assets
 
 theme:
   background-color: 50 1 6
@@ -35,7 +36,6 @@ pages:
                   - title: Wikipedia
                     url: https://en.wikipedia.org/
               - title: Entertainment
-                color: 10 70 50
                 links:
                   - title: Netflix
                     url: https://www.netflix.com/
@@ -46,7 +46,6 @@ pages:
                   - title: Prime Video
                     url: https://www.primevideo.com/
               - title: Social
-                color: 200 50 50
                 links:
                   - title: Reddit
                     url: https://www.reddit.com/
