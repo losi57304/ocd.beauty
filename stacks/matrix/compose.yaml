@@ -16,6 +16,9 @@ services:
         ipv4_address: 172.18.0.20
     volumes:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
+    labels:
+      glance.parent: continuwuity
+      glance.name: Unbound
 
   continuwuity:
     <<: *default-logging
@@ -34,6 +37,10 @@ services:
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
+    labels:
+      glance.name: Continuwuity
+      glance.icon: sh:continuwuity
+      glance.id: continuwuity
 
   lk-jwt-service:
     <<: *default-logging
@@ -45,6 +52,9 @@ services:
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
+    labels:
+      glance.parent: continuwuity
+      glance.name: LiveKit Authorization Service
 
   livekit-server:
     <<: *default-logging
@@ -57,6 +67,9 @@ services:
       - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml:ro
+    labels:
+      glance.parent: continuwuity
+      glance.name: LiveKit Server
 
 networks:
   default:

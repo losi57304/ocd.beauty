@@ -20,6 +20,9 @@ services:
       - ./garage.toml:/etc/garage.toml:ro
       - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
+    labels:
+      glance.parent: ente
+      glance.name: Garage
 
   ente-postgres:
     <<: *default-logging
@@ -33,6 +36,9 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
     volumes:
       - /srv/postgres:/var/lib/postgresql
+    labels:
+      glance.parent: ente
+      glance.name: Postgres
 
   ente-server:
     <<: *default-logging
@@ -56,6 +62,10 @@ services:
     volumes:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
+    labels:
+      glance.name: Ente
+      glance.icon: si:ente
+      glance.id: ente
 
 networks:
   default:
