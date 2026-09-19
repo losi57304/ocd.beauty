@@ -50,6 +50,13 @@ pages:
             search-engine: google
             autofocus: true
 
+          - type: custom-api
+            title: Random Fact
+            cache: 3h
+            url: https://uselessfacts.jsph.pl/api/v2/facts/random
+            template: |
+              <p class="size-h4 color-paragraph">{{ .JSON.String "text" }}</p>
+
           - type: docker-containers
             hide-by-default: false
 
@@ -60,15 +67,6 @@ pages:
               - UCsBjURrPoezykLs9EqgamOA # Fireship
               - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
               - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
-
-          - type: group
-            widgets:
-              - type: reddit
-                subreddit: technology
-                show-thumbnails: true
-              - type: reddit
-                subreddit: selfhosted
-                show-thumbnails: true
 
       - size: small
         widgets:

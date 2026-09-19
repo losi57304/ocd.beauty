@@ -18,6 +18,7 @@ services:
       - glance.name=Beszel
       - glance.icon=sh:beszel
       - glance.url=https://monitoring.ocd.beauty
+      - glance.id=beszel
 
   beszel-agent:
     <<: *default-logging
@@ -34,6 +35,9 @@ services:
     volumes:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      glance.parent: beszel
+      glance.name: Agent
 
 networks:
   default:
