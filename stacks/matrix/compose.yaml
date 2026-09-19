@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  matrix-unbound:
+  unbound:
     <<: *default-logging
-    container_name: matrix-unbound
+    container_name: unbound
     image: madnuttah/unbound:1.26.1-0
     restart: unless-stopped
     networks:
@@ -23,7 +23,7 @@ services:
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
     restart: unless-stopped
     depends_on:
-      - matrix-unbound
+      - unbound
     command:
       - /sbin/conduwuit
     environment:
