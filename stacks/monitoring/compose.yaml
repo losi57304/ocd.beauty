@@ -15,7 +15,7 @@ services:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
     labels:
-      - homepage.group=Monitoring
+      - homepage.group=Services
       - homepage.name=Beszel
       - homepage.href=https://monitoring.ocd.beauty
       - homepage.ping=monitoring.ocd.beauty

@@ -21,8 +21,8 @@ services:
       - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
     labels:
-      - homepage.group=Ente
-      - homepage.name=Garage
+      - homepage.group=Services
+      - homepage.name=Ente Garage
       - homepage.icon=sh-garage
 
   ente-postgres:
@@ -38,10 +38,8 @@ services:
     volumes:
       - /srv/postgres:/var/lib/postgresql
     labels:
-      - homepage.group=Ente
-      - homepage.name=Postgres
-      - homepage.href=https://database.ente.ocd.beauty
-      - homepage.ping=database.ente.ocd.beauty
+      - homepage.group=Services
+      - homepage.name=Ente Postgres
       - homepage.icon=sh-postgresql
 
   ente-server:
@@ -67,11 +65,9 @@ services:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
     labels:
-      - homepage.group=Ente
-      - homepage.name=Server
-      - homepage.href=https://ente.ocd.beauty
-      - homepage.ping=ente.ocd.beauty
-      - homepage.icon=sh-ente-photos
+      - homepage.group=Services
+      - homepage.name=Ente
+      - homepage.icon=si-ente
 
 networks:
   default:

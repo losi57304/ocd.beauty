@@ -20,7 +20,7 @@ services:
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
     labels:
-      - homepage.group=Music
+      - homepage.group=Services
       - homepage.name=Dufs
       - homepage.href=https://files.music.ocd.beauty
       - homepage.ping=files.music.ocd.beauty
@@ -44,7 +44,7 @@ services:
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/podcast:/podcast
     labels:
-      - homepage.group=Music
+      - homepage.group=Services
       - homepage.name=Gonic
       - homepage.href=https://music.ocd.beauty
       - homepage.ping=music.ocd.beauty
