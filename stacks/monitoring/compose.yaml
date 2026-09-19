@@ -16,7 +16,7 @@ services:
       - /srv/beszel/data:/beszel_data
     labels:
       - glance.name=Beszel
-      - glance.icon=sh:beszel-light
+      - glance.icon=sh:beszel
       - glance.url=https://monitoring.ocd.beauty
       - glance.id=beszel
 

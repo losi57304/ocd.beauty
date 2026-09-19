@@ -20,7 +20,7 @@ services:
       - ./glance.yaml:/app/config/glance.yml
     labels:
       glance.name: Glance
-      glance.icon: sh:glance-light
+      glance.icon: sh:glance
 
 networks:
   default:
