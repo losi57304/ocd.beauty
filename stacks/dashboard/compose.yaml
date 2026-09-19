@@ -15,6 +15,7 @@ services:
     volumes:
       - ./docker.yaml:/app/config/docker.yaml
       - ./settings.yaml:/app/config/settings.yaml
+      - ./widgets.yaml:/app/config/widgets.yaml
       - /srv/homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
