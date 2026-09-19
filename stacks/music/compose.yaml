@@ -21,7 +21,7 @@ services:
       - /srv/gonic/music:/music
     labels:
       - glance.name=Dufs
-      - glance.icon=sh:dufs-light.png
+      - glance.icon=sh:dufs.png
       - glance.url=https://files.music.ocd.beauty
 
   gonic:
@@ -43,7 +43,7 @@ services:
       - /srv/gonic/podcast:/podcast
     labels:
       - glance.name=Gonic
-      - glance.icon=sh:gonic-light.png
+      - glance.icon=sh:gonic.png
       - glance.url=https://music.ocd.beauty
 
 networks:
