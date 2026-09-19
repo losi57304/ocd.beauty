@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./config/glance.yaml:/app/config/glance.yaml:ro
+      - ./config/glance.yaml:/app/config/glance.yml:ro
 
 networks:
   default:
