@@ -4,13 +4,13 @@ matrix.ocd.beauty {
 
 livekit.ocd.beauty {
     @lk-jwt-service path /sfu/get* /healthz* /get_token*
-    reverse_proxy @lk-jwt-service 127.0.0.1:8080
+    reverse_proxy @lk-jwt-service matrix-lk-jwt-service:8080
 
-    reverse_proxy 127.0.0.1:7880
+    reverse_proxy matrix-livekit-server:7880
 }
 
-metrics.ocd.beauty {
-    reverse_proxy 127.0.0.1:8090
+monitoring.ocd.beauty {
+    reverse_proxy monitoring-beszel:8090
 }
 
 files.music.ocd.beauty {
@@ -18,13 +18,21 @@ files.music.ocd.beauty {
 }
 
 music.ocd.beauty {
-    reverse_proxy 127.0.0.1:81
+    reverse_proxy music-gonic:80
 }
 
 photos.ocd.beauty {
-    reverse_proxy 127.0.0.1:8081
+    reverse_proxy ente-server:8080
+}
+
+database.photos.ocd.beauty {
+    reverse_proxy ente-postgres:3900
 }
 
 s3.photos.ocd.beauty {
-    reverse_proxy 127.0.0.1:3900
+    reverse_proxy ente-garage:5432
+}
+
+dashboard.ocd.beauty {
+    reverse_proxy dashboard-homepage:3000
 }

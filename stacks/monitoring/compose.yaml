@@ -11,18 +11,17 @@ services:
     container_name: monitoring-beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
-    network_mode: host
     volumes:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
-    healthcheck:
-      test: ["CMD", "/beszel", "health", "--url", "http://localhost:8090"]
 
   monitoring-beszel-agent:
     <<: *default-logging
     container_name: monitoring-beszel-agent
     image: henrygd/beszel-agent:0.19.0
     restart: unless-stopped
+    depends_on:
+      - monitoring-beszel
     environment:
       - HUB_URL=http://monitoring-beszel:8090
       - KEY=${BESZEL_AGENT_KEY}
@@ -31,7 +30,8 @@ services:
     volumes:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
-    depends_on:
-      - monitoring-beszel
-    healthcheck:
-      test: ["CMD", "/agent", "health"]
+
+networks:
+  default:
+    name: proxy
+    external: true

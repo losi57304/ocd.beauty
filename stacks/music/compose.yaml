@@ -17,11 +17,8 @@ services:
       - --bind=/run/dufs/dufs.sock
       - /music
     volumes:
-      - /bin/busybox:/busybox:ro
       - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
-    healthcheck:
-      test: ["CMD", "/busybox", "test", "-S", "/run/dufs/dufs.sock"]
 
   music-gonic:
     <<: *default-logging
@@ -29,18 +26,19 @@ services:
     image: sentriz/gonic:8df10c3
     restart: unless-stopped
     environment:
-      - GONIC_LISTEN_ADDR=127.0.0.1:81
       - GONIC_CACHE_PATH=/cache
       - GONIC_DB_PATH=/data/gonic.db
       - GONIC_MUSIC_PATH=/music
       - GONIC_PLAYLISTS_PATH=/playlists
       - GONIC_PODCAST_PATH=/podcast
-    network_mode: host
     volumes:
       - /srv/gonic/cache:/cache
       - /srv/gonic/data:/data
       - /srv/gonic/music:/music
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/podcast:/podcast
-    healthcheck:
-      test: ["CMD-SHELL", "wget -q --spider http://localhost:81 || exit 1"]
+
+networks:
+  default:
+    name: proxy
+    external: true

@@ -16,14 +16,14 @@ services:
         ipv4_address: 172.18.0.20
     volumes:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
-    healthcheck:
-      test: /usr/local/unbound/sbin/healthcheck.sh
 
   matrix-continuwuity:
     <<: *default-logging
     container_name: matrix-continuwuity
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
     restart: unless-stopped
+    depends_on:
+      - matrix-unbound
     command:
       - /sbin/conduwuit
     environment:
@@ -32,13 +32,8 @@ services:
     volumes:
       - ./continuwuity-resolv.conf:/etc/resolv.conf:ro
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
-      - /bin/busybox:/busybox:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
-    depends_on:
-      - matrix-unbound
-    healthcheck:
-      test: ["CMD", "/busybox", "test", "-S", "/run/continuwuity/continuwuity.sock"]
 
   matrix-lk-jwt-service:
     <<: *default-logging
@@ -50,7 +45,6 @@ services:
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
-    network_mode: host
 
   matrix-livekit-server:
     <<: *default-logging
@@ -61,12 +55,8 @@ services:
       - --config=/etc/livekit.yaml
     environment:
       - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
-      - LIVEKIT_NODE=${LIVEKIT_NODE}
-    network_mode: host
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml:ro
-    healthcheck:
-      test: ["CMD", "nc", "-z", "127.0.0.1", "7880"]
 
 networks:
   default:

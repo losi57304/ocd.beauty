@@ -1,0 +1,23 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  dashboard-homepage:
+    <<: *default-logging
+    container_name: dashboard-homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=dashboard.ocd.beauty
+    volumes:
+      - ./settings.yaml:/app/config/settings.yaml
+      - /srv/homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+  default:
+    name: proxy
+    external: true

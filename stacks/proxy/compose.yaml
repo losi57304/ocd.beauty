@@ -11,10 +11,14 @@ services:
     container_name: proxy-caddy
     image: caddy:2.11.4
     restart: unless-stopped
-    network_mode: host
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - /run/continuwuity:/run/continuwuity
       - /run/dufs:/run/dufs
       - /srv/caddy/config:/config
       - /srv/caddy/data:/data
+
+networks:
+  default:
+    name: proxy
+    external: true

@@ -6,6 +6,21 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
+  ente-garage:
+    <<: *default-logging
+    container_name: ente-garage
+    image: dxflrs/garage:v2.4.1
+    restart: unless-stopped
+    environment:
+      - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
+      - GARAGE_DEFAULT_BUCKET=b2-eu-cen
+      - GARAGE_DEFAULT_ACCESS_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
+      - GARAGE_DEFAULT_SECRET_KEY=${GARAGE_DEFAULT_SECRET_KEY}
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+      - /srv/garage/meta:/var/lib/garage/meta
+      - /srv/garage/data:/var/lib/garage/data
+
   ente-postgres:
     <<: *default-logging
     container_name: ente-postgres
@@ -18,32 +33,15 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
     volumes:
       - /srv/postgres:/var/lib/postgresql
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pguser -d ente_db"]
-
-  ente-garage:
-    <<: *default-logging
-    container_name: ente-garage
-    image: dxflrs/garage:v2.4.1
-    restart: unless-stopped
-    environment:
-      - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
-      - GARAGE_DEFAULT_BUCKET=b2-eu-cen
-      - GARAGE_DEFAULT_ACCESS_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
-      - GARAGE_DEFAULT_SECRET_KEY=${GARAGE_DEFAULT_SECRET_KEY}
-    network_mode: host
-    volumes:
-      - ./garage.toml:/etc/garage.toml:ro
-      - /srv/garage/meta:/var/lib/garage/meta
-      - /srv/garage/data:/var/lib/garage/data
-    healthcheck:
-      test: ["CMD", "/garage", "-c", "/etc/garage.toml", "status"]
 
   ente-server:
     <<: *default-logging
     container_name: ente-server
     image: ghcr.io/ente/server:163f45c26f130090abed03649530f53d2d976565
     restart: unless-stopped
+    depends_on:
+      - ente-garage
+      - ente-postgres
     environment:
       - ENTE_DB_NAME=${POSTGRES_DB}
       - ENTE_DB_USER=${POSTGRES_USER}
@@ -55,13 +53,11 @@ services:
       - ENTE_KEY_ENCRYPTION=${ENTE_KEY_ENCRYPTION}
       - ENTE_KEY_HASH=${ENTE_KEY_HASH}
       - ENTE_JWT_SECRET=${ENTE_JWT_SECRET}
-    ports:
-      - 127.0.0.1:8081:8080
     volumes:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/ping"]
-    depends_on:
-      - ente-garage
-      - ente-postgres
+
+networks:
+  default:
+    name: proxy
+    external: true
