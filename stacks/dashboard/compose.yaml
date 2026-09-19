@@ -11,6 +11,9 @@ services:
     container_name: glance
     image: glanceapp/glance
     restart: unless-stopped
+    environment:
+      - GLANCE_SECRET_KEY=${GLANCE_SECRET_KEY}
+      - GLANCE_PASSWORD=${GLANCE_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/glance/config:/app/config

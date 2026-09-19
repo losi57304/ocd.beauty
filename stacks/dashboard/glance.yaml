@@ -1,3 +1,12 @@
+auth:
+  secret-key: ${GLANCE_SECRET_KEY}
+  users:
+    losi57304:
+      password: ${GLANCE_PASSWORD}
+
+server:
+  proxied: true
+
 theme:
   background-color: 50 1 6
   primary-color: 24 97 58
@@ -58,7 +67,7 @@ pages:
               <p class="size-h4 color-paragraph">{{ .JSON.String "text" }}</p>
 
           - type: docker-containers
-            hide-by-default: false
+            hide-by-default: true
 
           - type: videos
             channels:
