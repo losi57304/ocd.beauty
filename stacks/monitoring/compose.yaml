@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  monitoring-beszel:
+  beszel:
     <<: *default-logging
-    container_name: monitoring-beszel
+    container_name: beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
     volumes:
@@ -21,15 +21,15 @@ services:
       - homepage.ping=monitoring.ocd.beauty
       - homepage.icon=sh-beszel
 
-  monitoring-beszel-agent:
+  beszel-agent:
     <<: *default-logging
-    container_name: monitoring-beszel-agent
+    container_name: beszel-agent
     image: henrygd/beszel-agent:0.19.0
     restart: unless-stopped
     depends_on:
-      - monitoring-beszel
+      - beszel
     environment:
-      - HUB_URL=http://monitoring-beszel:8090
+      - HUB_URL=http://beszel:8090
       - KEY=${BESZEL_AGENT_KEY}
       - LISTEN=/beszel_socket/beszel.sock
       - TOKEN=${BESZEL_AGENT_TOKEN}

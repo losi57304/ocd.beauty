@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  matrix-unbound:
+  unbound:
     <<: *default-logging
-    container_name: matrix-unbound
+    container_name: unbound
     image: madnuttah/unbound:1.26.1-0
     restart: unless-stopped
     networks:
@@ -17,9 +17,9 @@ services:
     volumes:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
 
-  matrix-continuwuity:
+  continuwuity:
     <<: *default-logging
-    container_name: matrix-continuwuity
+    container_name: continuwuity
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
     restart: unless-stopped
     depends_on:
@@ -34,14 +34,10 @@ services:
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
-    labels:
-      - homepage.group=Matrix
-      - homepage.name=Matrix Continuwuity
-      - homepage.icon=sh-continuwuity
 
-  matrix-lk-jwt-service:
+  lk-jwt-service:
     <<: *default-logging
-    container_name: matrix-lk-jwt-service
+    container_name: lk-jwt-service
     image: ghcr.io/element-hq/lk-jwt-service:0.7.0
     restart: unless-stopped
     environment:
@@ -50,9 +46,9 @@ services:
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://livekit.ocd.beauty
 
-  matrix-livekit-server:
+  livekit-server:
     <<: *default-logging
-    container_name: matrix-livekit-server
+    container_name: livekit-server
     image: livekit/livekit-server:v1.13.6
     restart: unless-stopped
     command:
@@ -61,10 +57,6 @@ services:
       - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml:ro
-    labels:
-      - homepage.group=Services
-      - homepage.name=Matrix LiveKit Server
-      - homepage.icon=si-livekit
 
 networks:
   default:

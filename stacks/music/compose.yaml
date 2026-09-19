@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  music-dufs:
+  dufs:
     <<: *default-logging
-    container_name: music-dufs
+    container_name: dufs
     image: sigoden/dufs:v0.46.0
     restart: unless-stopped
     command:
@@ -23,12 +23,11 @@ services:
       - homepage.group=Services
       - homepage.name=Dufs
       - homepage.href=https://files.music.ocd.beauty
-      - homepage.ping=files.music.ocd.beauty
       - homepage.icon=sh-dufs.png
 
-  music-gonic:
+  gonic:
     <<: *default-logging
-    container_name: music-gonic
+    container_name: gonic
     image: sentriz/gonic:8df10c3
     restart: unless-stopped
     environment:
@@ -47,7 +46,6 @@ services:
       - homepage.group=Services
       - homepage.name=Gonic
       - homepage.href=https://music.ocd.beauty
-      - homepage.ping=music.ocd.beauty
       - homepage.icon=sh-gonic.png
 
 networks:

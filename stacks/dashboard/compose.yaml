@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  dashboard-homepage:
+  homepage:
     <<: *default-logging
-    container_name: dashboard-homepage
+    container_name: homepage
     image: ghcr.io/gethomepage/homepage:latest
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=dashboard.ocd.beauty

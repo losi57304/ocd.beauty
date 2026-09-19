@@ -6,9 +6,9 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  proxy-caddy:
+  caddy:
     <<: *default-logging
-    container_name: proxy-caddy
+    container_name: caddy
     image: caddy:2.11.4
     restart: unless-stopped
     ports:
