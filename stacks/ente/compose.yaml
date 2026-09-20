@@ -21,8 +21,12 @@ services:
       - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
     labels:
-      glance.parent: ente
-      glance.name: Garage
+      - glance.parent=ente
+      - glance.name=Garage
+      - traefik.enable=true
+      - traefik.http.routers.ente-postgres.rule=Host(`s3.ente.ocd.beauty`)
+      - traefik.http.routers.ente-postgres.entrypoints=websecure
+      - traefik.http.routers.ente-postgres.tls.certresolver=letsencrypt
 
   ente-postgres:
     <<: *default-logging
@@ -37,8 +41,12 @@ services:
     volumes:
       - /srv/postgres:/var/lib/postgresql
     labels:
-      glance.parent: ente
-      glance.name: Postgres
+      - glance.parent=ente
+      - glance.name=Postgres
+      - traefik.enable=true
+      - traefik.http.routers.ente-postgres.rule=Host(`database.ente.ocd.beauty`)
+      - traefik.http.routers.ente-postgres.entrypoints=websecure
+      - traefik.http.routers.ente-postgres.tls.certresolver=letsencrypt
 
   ente-server:
     <<: *default-logging
@@ -63,9 +71,13 @@ services:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
     labels:
-      glance.name: Ente
-      glance.icon: si:ente
-      glance.id: ente
+      - glance.name=Ente
+      - glance.icon=sh:ente-photos
+      - glance.id=ente
+      - traefik.enable=true
+      - traefik.http.routers.ente-server.rule=Host(`ente.ocd.beauty`)
+      - traefik.http.routers.ente-server.entrypoints=websecure
+      - traefik.http.routers.ente-server.tls.certresolver=letsencrypt
 
 networks:
   default:

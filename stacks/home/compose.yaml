@@ -9,7 +9,7 @@ services:
   glance:
     <<: *default-logging
     container_name: glance
-    image: glanceapp/glance
+    image: glanceapp/glance:v0.8.6
     restart: unless-stopped
     environment:
       - GLANCE_SECRET_KEY=${GLANCE_SECRET_KEY}
@@ -21,8 +21,12 @@ services:
       - ./styles.css:/assets/styles.css
       - ./wallpapers.jpg:/assets/wallpapers.jpg
     labels:
-      glance.name: Glance
-      glance.icon: sh:glance
+      - glance.name=Glance
+      - glance.icon=sh:glance
+      - traefik.enable=true
+      - traefik.http.routers.glance.rule=Host(`home.ocd.beauty`)
+      - traefik.http.routers.glance.entrypoints=websecure
+      - traefik.http.routers.glance.tls.certresolver=letsencrypt
 
 networks:
   default:

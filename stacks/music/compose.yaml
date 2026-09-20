@@ -23,6 +23,10 @@ services:
       - glance.name=Dufs
       - glance.icon=sh:dufs.png
       - glance.url=https://files.music.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.gonic.rule=Host(`files.music.ocd.beauty`)
+      - traefik.http.routers.gonic.entrypoints=websecure
+      - traefik.http.routers.gonic.tls.certresolver=letsencrypt
 
   gonic:
     <<: *default-logging
@@ -45,6 +49,10 @@ services:
       - glance.name=Gonic
       - glance.icon=sh:gonic.png
       - glance.url=https://music.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.gonic.rule=Host(`music.ocd.beauty`)
+      - traefik.http.routers.gonic.entrypoints=websecure
+      - traefik.http.routers.gonic.tls.certresolver=letsencrypt
 
 networks:
   default:

@@ -19,6 +19,10 @@ services:
       - glance.icon=sh:beszel
       - glance.url=https://monitoring.ocd.beauty
       - glance.id=beszel
+      - traefik.enable=true
+      - traefik.http.routers.gonic.rule=Host(`monitoring.ocd.beauty`)
+      - traefik.http.routers.gonic.entrypoints=websecure
+      - traefik.http.routers.gonic.tls.certresolver=letsencrypt
 
   beszel-agent:
     <<: *default-logging
@@ -36,8 +40,8 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
-      glance.parent: beszel
-      glance.name: Agent
+      - glance.parent=beszel
+      - glance.name=beszel-agent
 
 networks:
   default:
