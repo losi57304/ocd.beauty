@@ -99,10 +99,9 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: London, United Kingdom
+            location: ${WEATHER_LOCATION}
             units: metric
             hour-format: 24h
-            hide-location: true
 
           - type: custom-api
             height: 200px
@@ -111,9 +110,3 @@ pages:
             url: https://dog.ceo/api/breeds/image/random
             template: |
               <img src="{{ .JSON.String "message" }}"></img>
-
-          - type: repository
-            repository: losi57304/ocd.beauty
-            pull-requests-limit: -1
-            issues-limit: -1
-            commits-limit: 3

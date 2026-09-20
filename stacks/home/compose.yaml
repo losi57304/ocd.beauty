@@ -14,6 +14,7 @@ services:
     environment:
       - GLANCE_SECRET_KEY=${GLANCE_SECRET_KEY}
       - GLANCE_PASSWORD=${GLANCE_PASSWORD}
+      - WEATHER_LOCATION=${WEATHER_LOCATION}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /srv/glance/config:/app/config
