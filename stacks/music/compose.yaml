@@ -14,7 +14,6 @@ services:
     command:
       - --allow-all
       - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
-      - --bind=/run/dufs/dufs.sock
       - /music
     volumes:
       - /run/dufs:/run/dufs
@@ -27,6 +26,7 @@ services:
       - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
       - traefik.http.routers.dufs.entrypoints=websecure
       - traefik.http.routers.dufs.tls.certresolver=letsencrypt
+      - traefik.http.services.dufs.loadbalancer.server.port=8090
 
   gonic:
     <<: *default-logging
@@ -53,6 +53,7 @@ services:
       - traefik.http.routers.gonic.rule=Host(`music.ocd.beauty`)
       - traefik.http.routers.gonic.entrypoints=websecure
       - traefik.http.routers.gonic.tls.certresolver=letsencrypt
+      - traefik.http.services.gonic.loadbalancer.server.port=80
 
 networks:
   default:

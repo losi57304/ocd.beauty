@@ -23,6 +23,7 @@ services:
       - traefik.http.routers.beszel.rule=Host(`monitoring.ocd.beauty`)
       - traefik.http.routers.beszel.entrypoints=websecure
       - traefik.http.routers.beszel.tls.certresolver=letsencrypt
+      - traefik.http.services.beszel.loadbalancer.server.port=8090
 
   beszel-agent:
     <<: *default-logging

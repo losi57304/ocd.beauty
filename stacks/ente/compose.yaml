@@ -27,6 +27,7 @@ services:
       - traefik.http.routers.ente-garage.rule=Host(`s3.ente.ocd.beauty`)
       - traefik.http.routers.ente-garage.entrypoints=websecure
       - traefik.http.routers.ente-garage.tls.certresolver=letsencrypt
+      - traefik.http.services.ente-garage.loadbalancer.server.port=3900
 
   ente-postgres:
     <<: *default-logging
@@ -47,6 +48,7 @@ services:
       - traefik.http.routers.ente-postgres.rule=Host(`database.ente.ocd.beauty`)
       - traefik.http.routers.ente-postgres.entrypoints=websecure
       - traefik.http.routers.ente-postgres.tls.certresolver=letsencrypt
+      - traefik.http.services.ente-postgres.loadbalancer.server.port=5432
 
   ente-server:
     <<: *default-logging
@@ -78,6 +80,7 @@ services:
       - traefik.http.routers.ente-server.rule=Host(`ente.ocd.beauty`)
       - traefik.http.routers.ente-server.entrypoints=websecure
       - traefik.http.routers.ente-server.tls.certresolver=letsencrypt
+      - traefik.http.services.ente-server.loadbalancer.server.port=8080
 
 networks:
   default:

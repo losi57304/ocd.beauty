@@ -27,6 +27,7 @@ services:
       - traefik.http.routers.glance.rule=Host(`home.ocd.beauty`)
       - traefik.http.routers.glance.entrypoints=websecure
       - traefik.http.routers.glance.tls.certresolver=letsencrypt
+      - traefik.http.services.glance.loadbalancer.server.port=8080
 
 networks:
   default:

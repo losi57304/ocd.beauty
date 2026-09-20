@@ -45,6 +45,7 @@ services:
       - traefik.http.routers.continuwuity.rule=Host(`matrix.ocd.beauty`)
       - traefik.http.routers.continuwuity.entrypoints=websecure
       - traefik.http.routers.continuwuity.tls.certresolver=letsencrypt
+      - traefik.http.services.continuwuity.loadbalancer.server.port=8080
 
   lk-jwt-service:
     <<: *default-logging
@@ -63,6 +64,7 @@ services:
       - traefik.http.routers.lk-jwt-service.rule=Host(`jwt.rtc.matrix.ocd.beauty`)
       - traefik.http.routers.lk-jwt-service.entrypoints=websecure
       - traefik.http.routers.lk-jwt-service.tls.certresolver=letsencrypt
+      - traefik.http.services.lk-jwt-service.loadbalancer.server.port=8080
 
   livekit-server:
     <<: *default-logging
@@ -82,6 +84,7 @@ services:
       - traefik.http.routers.livekit-server.rule=Host(`rtc.matrix.ocd.beauty`)
       - traefik.http.routers.livekit-server.entrypoints=websecure
       - traefik.http.routers.livekit-server.tls.certresolver=letsencrypt
+      - traefik.http.services.livekit-server.loadbalancer.server.port=7880
 
 networks:
   default:
