@@ -56,3 +56,8 @@ services:
     labels:
       - glance.name=woodpecker-ci-agent
       - glance.parent=woodpecker-ci-server
+
+networks:
+  default:
+    external: true
+    name: proxy

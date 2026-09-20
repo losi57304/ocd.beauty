@@ -26,3 +26,8 @@ services:
       - traefik.http.routers.gitea.rule=Host(`git.ocd.beauty`)
       - traefik.http.routers.gitea.tls.certresolver=letsencrypt
       - traefik.http.services.gitea.loadbalancer.server.port=3000
+
+networks:
+  default:
+    external: true
+    name: proxy
