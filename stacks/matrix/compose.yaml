@@ -17,8 +17,8 @@ services:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
     restart: unless-stopped
     labels:
-      - glance.parent=continuwuity
       - glance.name=unbound
+      - glance.parent=continuwuity
 
   continuwuity:
     <<: *default-logging
@@ -30,22 +30,21 @@ services:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
     volumes:
-      - ./continuwuity-resolv.conf:/etc/resolv.conf:ro
-      - ./continuwuity.toml:/etc/continuwuity.toml:ro
-      - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
+      - ./continuwuity.toml:/etc/continuwuity.toml:ro
+      - ./continuwuity-resolv.conf:/etc/resolv.conf:ro
     restart: unless-stopped
     command:
       - /sbin/conduwuit
     labels:
-      - glance.name=Continuwuity
       - glance.icon=sh:continuwuity
       - glance.id=continuwuity
+      - glance.name=Continuwuity
       - traefik.enable=true
-      - traefik.http.routers.continuwuity.rule=Host(`matrix.ocd.beauty`)
       - traefik.http.routers.continuwuity.entrypoints=websecure
+      - traefik.http.routers.continuwuity.rule=Host(`matrix.ocd.beauty`)
       - traefik.http.routers.continuwuity.tls.certresolver=letsencrypt
-      - traefik.http.services.continuwuity.loadbalancer.server.port=8080
+      - traefik.http.services.continuwuity.loadbalancer.server.port=8008
 
   lk-jwt-service:
     <<: *default-logging
@@ -58,11 +57,11 @@ services:
       - LIVEKIT_URL=wss://rtc.matrix.ocd.beauty
     restart: unless-stopped
     labels:
-      - glance.parent=continuwuity
       - glance.name=lk-jwt-service
+      - glance.parent=continuwuity
       - traefik.enable=true
-      - traefik.http.routers.lk-jwt-service.rule=Host(`jwt.rtc.matrix.ocd.beauty`)
       - traefik.http.routers.lk-jwt-service.entrypoints=websecure
+      - traefik.http.routers.lk-jwt-service.rule=Host(`jwt.rtc.matrix.ocd.beauty`)
       - traefik.http.routers.lk-jwt-service.tls.certresolver=letsencrypt
       - traefik.http.services.lk-jwt-service.loadbalancer.server.port=8080
 
@@ -78,18 +77,18 @@ services:
     command:
       - --config=/etc/livekit.yaml
     labels:
-      - glance.parent=continuwuity
       - glance.name=livekit-server
+      - glance.parent=continuwuity
       - traefik.enable=true
-      - traefik.http.routers.livekit-server.rule=Host(`rtc.matrix.ocd.beauty`)
       - traefik.http.routers.livekit-server.entrypoints=websecure
+      - traefik.http.routers.livekit-server.rule=Host(`rtc.matrix.ocd.beauty`)
       - traefik.http.routers.livekit-server.tls.certresolver=letsencrypt
       - traefik.http.services.livekit-server.loadbalancer.server.port=7880
 
 networks:
   default:
-    name: proxy
     external: true
+    name: proxy
     ipam:
       driver: default
       config:

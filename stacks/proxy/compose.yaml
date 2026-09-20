@@ -1,0 +1,44 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  traefik:
+    <<: *default-logging
+    image: traefik:v3.7.13
+    container_name: traefik
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /srv/traefik/letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    command:
+      - --api.dashboard=true
+      - --certificatesresolvers.letsencrypt.acme.email=320689555+losi57304@users.noreply.github.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.websecure.address=:443
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+    labels:
+      - glance.icon=sh:traefik
+      - glance.name=Traefik
+      - glance.url=https://proxy.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoint=websecure
+      - traefik.http.routers.traefik.rule=Host(`proxy.ocd.beauty`)
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+
+networks:
+  default:
+    external: true
+    name: proxy

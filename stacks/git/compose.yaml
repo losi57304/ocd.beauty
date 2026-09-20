@@ -11,8 +11,8 @@ services:
     image: codeberg.org/forgejo/forgejo:16.0.5
     container_name: forgejo
     volumes:
-      - /srv/forgejo/data:/data
       - /etc/localtime:/etc/localtime:ro
+      - /srv/forgejo/data:/data
     restart: unless-stopped
     labels:
       - glance.icon=sh:forgejo

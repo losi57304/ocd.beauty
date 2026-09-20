@@ -11,7 +11,6 @@ services:
     image: sigoden/dufs:v0.46.0
     container_name: dufs
     volumes:
-      - /run/dufs:/run/dufs
       - /srv/gonic/music:/music
     restart: unless-stopped
     command:
@@ -19,12 +18,12 @@ services:
       - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
       - /music
     labels:
-      - glance.name=Dufs
       - glance.icon=sh:dufs.png
+      - glance.name=Dufs
       - glance.url=https://files.music.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
       - traefik.http.routers.dufs.entrypoints=websecure
+      - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
       - traefik.http.routers.dufs.tls.certresolver=letsencrypt
       - traefik.http.services.dufs.loadbalancer.server.port=5000
 
@@ -46,8 +45,8 @@ services:
       - /srv/gonic/podcast:/podcast
     restart: unless-stopped
     labels:
-      - glance.name=Gonic
       - glance.icon=sh:gonic.png
+      - glance.name=Gonic
       - glance.url=https://music.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.gonic.rule=Host(`music.ocd.beauty`)
@@ -57,5 +56,5 @@ services:
 
 networks:
   default:
-    name: proxy
     external: true
+    name: proxy

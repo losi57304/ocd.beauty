@@ -11,27 +11,25 @@ services:
     image: glanceapp/glance:v0.8.6
     container_name: glance
     environment:
-      - GLANCE_SECRET_KEY=${GLANCE_SECRET_KEY}
-      - GLANCE_PASSWORD=${GLANCE_PASSWORD}
+      - GLANCE_AUTH_PASSWORD=${GLANCE_AUTH_PASSWORD}
+      - GLANCE_AUTH_SECRET_KEY=${GLANCE_AUTH_SECRET_KEY}
       - WEATHER_LOCATION=${WEATHER_LOCATION}
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - /srv/glance/config:/app/config
-      - ./glance.yaml:/app/config/glance.yml
-      - ./styles.css:/assets/styles.css
-      - ./wallpapers.jpg:/assets/wallpapers.jpg
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./glance.yaml:/app/config/glance.yml:ro
     restart: unless-stopped
     labels:
-      - glance.name=Glance
       - glance.icon=sh:glance
+      - glance.name=Glance
       - glance.url=https://home.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.glance.rule=Host(`home.ocd.beauty`)
       - traefik.http.routers.glance.entrypoints=websecure
+      - traefik.http.routers.glance.rule=Host(`home.ocd.beauty`)
       - traefik.http.routers.glance.tls.certresolver=letsencrypt
       - traefik.http.services.glance.loadbalancer.server.port=8080
 
 networks:
   default:
-    name: proxy
     external: true
+    name: proxy

@@ -15,13 +15,13 @@ services:
       - /srv/beszel/data:/beszel_data
     restart: unless-stopped
     labels:
-      - glance.name=Beszel
       - glance.icon=sh:beszel
-      - glance.url=https://monitoring.ocd.beauty
       - glance.id=beszel
+      - glance.name=Beszel
+      - glance.url=https://monitoring.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.beszel.rule=Host(`monitoring.ocd.beauty`)
       - traefik.http.routers.beszel.entrypoints=websecure
+      - traefik.http.routers.beszel.rule=Host(`monitoring.ocd.beauty`)
       - traefik.http.routers.beszel.tls.certresolver=letsencrypt
       - traefik.http.services.beszel.loadbalancer.server.port=8090
 
@@ -41,10 +41,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
     labels:
-      - glance.parent=beszel
       - glance.name=beszel-agent
+      - glance.parent=beszel
 
 networks:
   default:
-    name: proxy
     external: true
+    name: proxy
