@@ -26,7 +26,7 @@ services:
       - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
       - traefik.http.routers.dufs.entrypoints=websecure
       - traefik.http.routers.dufs.tls.certresolver=letsencrypt
-      - traefik.http.services.dufs.loadbalancer.server.port=8090
+      - traefik.http.services.dufs.loadbalancer.server.port=5000
 
   gonic:
     <<: *default-logging
