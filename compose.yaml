@@ -1,6 +1,6 @@
 include:
-  - stacks/dashboard/compose.yaml
   - stacks/ente/compose.yaml
+  - stacks/home/compose.yaml
   - stacks/matrix/compose.yaml
   - stacks/monitoring/compose.yaml
   - stacks/music/compose.yaml
