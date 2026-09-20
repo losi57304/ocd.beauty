@@ -6,53 +6,53 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  woodpecker-server:
+  woodpecker-ci-server:
     <<: *default-logging
-    image: woodpeckerci/woodpecker-server:v3
-    container_name: woodpecker-server
+    image: woodpeckerci/woodpecker-server:v3.18.1
+    container_name: woodpecker-ci-server
     environment:
-      - WOODPECKER_DEBUG_PRETTY=true
-      - WOODPECKER_DEBUG_NOCOLOR=false
-      - WOODPECKER_OPEN=true
-      - WOODPECKER_HOST=https://ci.ocd.beauty
-      - WOODPECKER_GITEA=true
-      - WOODPECKER_GITEA_URL=https://git.ocd.beauty
-      - WOODPECKER_GITEA_CLIENT=${WOODPECKER_GITEA_CLIENT}
-      - WOODPECKER_GITEA_SECRET=${WOODPECKER_GITEA_SECRET}
+      - WOODPECKER_ADMIN=losi57304
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_DEBUG_NOCOLOR=false
+      - WOODPECKER_DEBUG_PRETTY=true
+      - WOODPECKER_FORGEJO=true
+      - WOODPECKER_FORGEJO_CLIENT=${WOODPECKER_GITEA_CLIENT}
+      - WOODPECKER_FORGEJO_SECRET=${WOODPECKER_GITEA_SECRET}
+      - WOODPECKER_FORGEJO_URL=https://git.ocd.beauty
       - WOODPECKER_GRPC_SECRET=${WOODPECKER_GRPC_SECRET}
+      - WOODPECKER_HOST=https://ci.ocd.beauty
     volumes:
-      - /srv/woodpecker/server/data:/var/lib/woodpecker
+      - /srv/woodpecker-ci/server/data:/var/lib/woodpecker
     restart: unless-stopped
     labels:
-      - glance.name=Woodpecker CI
       - glance.icon=sh:woodpecker-ci
-      - glance.id=woodpecker-server
+      - glance.id=woodpecker-ci-server
+      - glance.name=Woodpecker CI
       - glance.url=https://ci.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.woodpecker-server.rule=Host(`ci.ocd.beauty`)
-      - traefik.http.routers.woodpecker-server.entrypoints=websecure
-      - traefik.http.routers.woodpecker-server.tls.certresolver=letsencrypt
-      - traefik.http.services.woodpecker-server.loadbalancer.server.port=8000
+      - traefik.http.routers.woodpecker-ci-server.entrypoints=websecure
+      - traefik.http.routers.woodpecker-ci-server.rule=Host(`ci.ocd.beauty`)
+      - traefik.http.routers.woodpecker-ci-server.tls.certresolver=letsencrypt
+      - traefik.http.services.woodpecker-ci-server.loadbalancer.server.port=8000
 
-  woodpecker-agent:
+  woodpecker-ci-agent:
     <<: *default-logging
-    image: woodpeckerci/woodpecker-agent:v3
-    container_name: woodpecker-agent
+    image: woodpeckerci/woodpecker-agent:v3.18.1
+    container_name: woodpecker-ci-agent
     depends_on:
-      - woodpecker-server
+      - woodpecker-ci-server
     environment:
-      - WOODPECKER_DEBUG_PRETTY=true
-      - WOODPECKER_DEBUG_NOCOLOR=false
-      - WOODPECKER_SERVER=woodpecker-server:9000
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_DEBUG_NOCOLOR=false
+      - WOODPECKER_DEBUG_PRETTY=true
       - WOODPECKER_GRPC_SECRET=${WOODPECKER_GRPC_SECRET}
+      - WOODPECKER_SERVER=woodpecker-ci-server:9000
     volumes:
-      - /srv/woodpecker/agent/config:/etc/woodpecker
+      - /srv/woodpecker-ci/agent/config:/etc/woodpecker
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
     command:
       - agent
     labels:
-      - glance.parent=woodpecker-server
-      - glance.name=woodpecker-agent
+      - glance.name=woodpecker-ci-agent
+      - glance.parent=woodpecker-ci-server
