@@ -1,6 +1,0 @@
-[server]
-bind_addr = "0.0.0.0:2333"
-default_token = ""
-
-[server.services.ollama]
-bind_addr = "0.0.0.0:11434"

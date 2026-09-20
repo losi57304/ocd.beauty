@@ -11,6 +11,8 @@ decrypt:
         fi
     done
 
+    sops --decrypt --input-type binary --output-type binary stacks/ingress/rathole-config.enc.json > stacks/ingress/rathole-config.toml
+
 deploy:
     docker compose down
     git pull
@@ -26,3 +28,5 @@ encrypt:
             sops encrypt "$stack/.env" > "$stack/.enc.env"
         fi
     done
+
+    sops --encrypt --input-type binary --output-type binary stacks/ingress/rathole-config.toml > stacks/ingress/rathole-config.enc.json
