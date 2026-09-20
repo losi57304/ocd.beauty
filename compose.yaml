@@ -1,5 +1,7 @@
 include:
+  - stacks/ci/compose.yaml
   - stacks/ente/compose.yaml
+  - stacks/git/compose.yaml
   - stacks/home/compose.yaml
   - stacks/matrix/compose.yaml
   - stacks/monitoring/compose.yaml

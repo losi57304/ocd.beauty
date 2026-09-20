@@ -1,0 +1,25 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  gitea:
+    <<: *default-logging
+    container_name: gitea
+    image: gitea/gitea:1.27.3
+    restart: unless-stopped
+    volumes:
+      - /srv/gitea/data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      - glance.name=Gitea
+      - glance.icon=sh:gitea
+      - traefik.enable=true
+      - traefik.http.routers.gitea.rule=Host(`git.ocd.beauty`)
+      - traefik.http.routers.gitea.entrypoints=websecure
+      - traefik.http.routers.gitea.tls.certresolver=letsencrypt
+      - traefik.http.services.gitea.loadbalancer.server.port=3000
