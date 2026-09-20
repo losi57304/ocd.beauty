@@ -14,7 +14,7 @@ services:
       - WOODPECKER_DEBUG_PRETTY=true
       - WOODPECKER_DEBUG_NOCOLOR=false
       - WOODPECKER_OPEN=true
-      - WOODPECKER_HOST=ci.ocd.beauty
+      - WOODPECKER_HOST=https://ci.ocd.beauty
       - WOODPECKER_GITEA=true
       - WOODPECKER_GITEA_URL=https://git.ocd.beauty
       - WOODPECKER_GITEA_CLIENT=${WOODPECKER_GITEA_CLIENT}
@@ -27,6 +27,7 @@ services:
       - glance.name=Woodpecker CI
       - glance.icon=sh:woodpecker-ci
       - glance.id=woodpecker-server
+      - glance.url=https://ci.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.woodpecker-server.rule=Host(`ci.ocd.beauty`)
       - traefik.http.routers.woodpecker-server.entrypoints=websecure

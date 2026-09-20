@@ -23,6 +23,7 @@ services:
     labels:
       - glance.name=Glance
       - glance.icon=sh:glance
+      - glance.url=https://home.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.glance.rule=Host(`home.ocd.beauty`)
       - traefik.http.routers.glance.entrypoints=websecure

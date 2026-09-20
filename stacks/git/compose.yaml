@@ -18,6 +18,7 @@ services:
     labels:
       - glance.name=Gitea
       - glance.icon=sh:gitea
+      - glance.url=https://git.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.gitea.rule=Host(`git.ocd.beauty`)
       - traefik.http.routers.gitea.entrypoints=websecure
