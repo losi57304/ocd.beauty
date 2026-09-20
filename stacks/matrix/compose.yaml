@@ -8,27 +8,24 @@ x-logging: &default-logging
 services:
   unbound:
     <<: *default-logging
-    container_name: unbound
     image: madnuttah/unbound:1.26.1-0
-    restart: unless-stopped
+    container_name: unbound
     networks:
       default:
         ipv4_address: 172.18.0.20
     volumes:
       - ./unbound.conf:/etc/unbound/unbound.conf:ro
+    restart: unless-stopped
     labels:
       - glance.parent=continuwuity
       - glance.name=unbound
 
   continuwuity:
     <<: *default-logging
-    container_name: continuwuity
     image: forgejo.ellis.link/continuwuation/continuwuity:sha-c6f2c5e-maxperf
-    restart: unless-stopped
+    container_name: continuwuity
     depends_on:
       - unbound
-    command:
-      - /sbin/conduwuit
     environment:
       - CONTINUWUITY_ALLOW_REGISTRATION=${CONTINUWUITY_ALLOW_REGISTRATION}
       - CONTINUWUITY_CONFIG=/etc/continuwuity.toml
@@ -37,6 +34,9 @@ services:
       - ./continuwuity.toml:/etc/continuwuity.toml:ro
       - /run/continuwuity:/run/continuwuity
       - /srv/continuwuity:/var/lib/continuwuity
+    restart: unless-stopped
+    command:
+      - /sbin/conduwuit
     labels:
       - glance.name=Continuwuity
       - glance.icon=sh:continuwuity
@@ -49,14 +49,14 @@ services:
 
   lk-jwt-service:
     <<: *default-logging
-    container_name: lk-jwt-service
     image: ghcr.io/element-hq/lk-jwt-service:0.7.0
-    restart: unless-stopped
+    container_name: lk-jwt-service
     environment:
       - LIVEKIT_FULL_ACCESS_HOMESERVERS=matrix.ocd.beauty
       - LIVEKIT_KEY=${LIVEKIT_KEY}
       - LIVEKIT_SECRET=${LIVEKIT_SECRET}
       - LIVEKIT_URL=wss://rtc.matrix.ocd.beauty
+    restart: unless-stopped
     labels:
       - glance.parent=continuwuity
       - glance.name=lk-jwt-service
@@ -68,15 +68,15 @@ services:
 
   livekit-server:
     <<: *default-logging
-    container_name: livekit-server
     image: livekit/livekit-server:v1.13.6
-    restart: unless-stopped
-    command:
-      - --config=/etc/livekit.yaml
+    container_name: livekit-server
     environment:
       - "LIVEKIT_KEYS=${LIVEKIT_KEY}: ${LIVEKIT_SECRET}"
     volumes:
       - ./livekit.yaml:/etc/livekit.yaml:ro
+    restart: unless-stopped
+    command:
+      - --config=/etc/livekit.yaml
     labels:
       - glance.parent=continuwuity
       - glance.name=livekit-server

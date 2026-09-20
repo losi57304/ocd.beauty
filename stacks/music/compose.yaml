@@ -8,16 +8,16 @@ x-logging: &default-logging
 services:
   dufs:
     <<: *default-logging
-    container_name: dufs
     image: sigoden/dufs:v0.46.0
+    container_name: dufs
+    volumes:
+      - /run/dufs:/run/dufs
+      - /srv/gonic/music:/music
     restart: unless-stopped
     command:
       - --allow-all
       - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
       - /music
-    volumes:
-      - /run/dufs:/run/dufs
-      - /srv/gonic/music:/music
     labels:
       - glance.name=Dufs
       - glance.icon=sh:dufs.png
@@ -30,9 +30,8 @@ services:
 
   gonic:
     <<: *default-logging
-    container_name: gonic
     image: sentriz/gonic:8df10c3
-    restart: unless-stopped
+    container_name: gonic
     environment:
       - GONIC_CACHE_PATH=/cache
       - GONIC_DB_PATH=/data/gonic.db
@@ -45,6 +44,7 @@ services:
       - /srv/gonic/music:/music
       - /srv/gonic/playlists:/playlists
       - /srv/gonic/podcast:/podcast
+    restart: unless-stopped
     labels:
       - glance.name=Gonic
       - glance.icon=sh:gonic.png

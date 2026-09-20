@@ -8,9 +8,8 @@ x-logging: &default-logging
 services:
   glance:
     <<: *default-logging
-    container_name: glance
     image: glanceapp/glance:v0.8.6
-    restart: unless-stopped
+    container_name: glance
     environment:
       - GLANCE_SECRET_KEY=${GLANCE_SECRET_KEY}
       - GLANCE_PASSWORD=${GLANCE_PASSWORD}
@@ -21,6 +20,7 @@ services:
       - ./glance.yaml:/app/config/glance.yml
       - ./styles.css:/assets/styles.css
       - ./wallpapers.jpg:/assets/wallpapers.jpg
+    restart: unless-stopped
     labels:
       - glance.name=Glance
       - glance.icon=sh:glance

@@ -8,32 +8,31 @@ x-logging: &default-logging
 services:
   ente-garage:
     <<: *default-logging
-    container_name: ente-garage
     image: dxflrs/garage:v2.4.1
-    restart: unless-stopped
+    container_name: ente-garage
     environment:
-      - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
-      - GARAGE_DEFAULT_BUCKET=b2-eu-cen
       - GARAGE_DEFAULT_ACCESS_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
+      - GARAGE_DEFAULT_BUCKET=b2-eu-cen
       - GARAGE_DEFAULT_SECRET_KEY=${GARAGE_DEFAULT_SECRET_KEY}
+      - GARAGE_RPC_SECRET=${GARAGE_RPC_SECRET}
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
-      - /srv/garage/meta:/var/lib/garage/meta
       - /srv/garage/data:/var/lib/garage/data
+      - /srv/garage/meta:/var/lib/garage/meta
+    restart: unless-stopped
     labels:
-      - glance.parent=ente
-      - glance.name=garage
+      - glance.name=ente-garage
+      - glance.parent=ente-server
       - traefik.enable=true
-      - traefik.http.routers.ente-garage.rule=Host(`s3.ente.ocd.beauty`)
       - traefik.http.routers.ente-garage.entrypoints=websecure
+      - traefik.http.routers.ente-garage.rule=Host(`s3.ente.ocd.beauty`)
       - traefik.http.routers.ente-garage.tls.certresolver=letsencrypt
       - traefik.http.services.ente-garage.loadbalancer.server.port=3900
 
   ente-postgres:
     <<: *default-logging
-    container_name: ente-postgres
     image: postgres:18.6
-    restart: unless-stopped
+    container_name: ente-postgres
     environment:
       - PGDATA=/var/lib/postgresql/18/data
       - POSTGRES_DB=${POSTGRES_DB}
@@ -42,43 +41,43 @@ services:
     volumes:
       - /srv/postgres:/var/lib/postgresql
     labels:
-      - glance.parent=ente
-      - glance.name=postgres
+      - glance.name=ente-postgres
+      - glance.parent=ente-server
       - traefik.enable=true
-      - traefik.http.routers.ente-postgres.rule=Host(`database.ente.ocd.beauty`)
       - traefik.http.routers.ente-postgres.entrypoints=websecure
+      - traefik.http.routers.ente-postgres.rule=Host(`database.ente.ocd.beauty`)
       - traefik.http.routers.ente-postgres.tls.certresolver=letsencrypt
       - traefik.http.services.ente-postgres.loadbalancer.server.port=5432
 
   ente-server:
     <<: *default-logging
-    container_name: ente-server
     image: ghcr.io/ente/server:163f45c26f130090abed03649530f53d2d976565
-    restart: unless-stopped
+    container_name: ente-server
     depends_on:
       - ente-garage
       - ente-postgres
     environment:
       - ENTE_DB_NAME=${POSTGRES_DB}
-      - ENTE_DB_USER=${POSTGRES_USER}
       - ENTE_DB_PASSWORD=${POSTGRES_PASSWORD}
-      - ENTE_S3_B2_EU_CEN_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
-      - ENTE_S3_B2_EU_CEN_SECRET=${GARAGE_DEFAULT_SECRET_KEY}
+      - ENTE_DB_USER=${POSTGRES_USER}
       - ENTE_HARDCODED_OTT_LOCAL_DOMAIN_SUFFIX=${ENTE_HARDCODED_OTT_LOCAL_DOMAIN_SUFFIX}
       - ENTE_HARDCODED_OTT_LOCAL_DOMAIN_VALUE=${ENTE_HARDCODED_OTT_LOCAL_DOMAIN_VALUE}
+      - ENTE_JWT_SECRET=${ENTE_JWT_SECRET}
       - ENTE_KEY_ENCRYPTION=${ENTE_KEY_ENCRYPTION}
       - ENTE_KEY_HASH=${ENTE_KEY_HASH}
-      - ENTE_JWT_SECRET=${ENTE_JWT_SECRET}
+      - ENTE_S3_B2_EU_CEN_KEY=${GARAGE_DEFAULT_ACCESS_KEY}
+      - ENTE_S3_B2_EU_CEN_SECRET=${GARAGE_DEFAULT_SECRET_KEY}
     volumes:
       - ./credentials.yaml:/credentials.yaml:ro
       - /srv/ente-server/data:/data:ro
+    restart: unless-stopped
     labels:
-      - glance.name=Ente
       - glance.icon=sh:ente-photos
-      - glance.id=ente
+      - glance.id=ente-server
+      - glance.name=Ente
       - traefik.enable=true
-      - traefik.http.routers.ente-server.rule=Host(`ente.ocd.beauty`)
       - traefik.http.routers.ente-server.entrypoints=websecure
+      - traefik.http.routers.ente-server.rule=Host(`ente.ocd.beauty`)
       - traefik.http.routers.ente-server.tls.certresolver=letsencrypt
       - traefik.http.services.ente-server.loadbalancer.server.port=8080
 

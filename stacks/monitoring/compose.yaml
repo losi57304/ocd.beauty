@@ -8,12 +8,12 @@ x-logging: &default-logging
 services:
   beszel:
     <<: *default-logging
-    container_name: beszel
     image: henrygd/beszel:0.19.0
-    restart: unless-stopped
+    container_name: beszel
     volumes:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
+    restart: unless-stopped
     labels:
       - glance.name=Beszel
       - glance.icon=sh:beszel
@@ -27,9 +27,8 @@ services:
 
   beszel-agent:
     <<: *default-logging
-    container_name: beszel-agent
     image: henrygd/beszel-agent:0.19.0
-    restart: unless-stopped
+    container_name: beszel-agent
     depends_on:
       - beszel
     environment:
@@ -40,6 +39,7 @@ services:
     volumes:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
     labels:
       - glance.parent=beszel
       - glance.name=beszel-agent
