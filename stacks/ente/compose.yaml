@@ -22,11 +22,11 @@ services:
       - /srv/garage/data:/var/lib/garage/data
     labels:
       - glance.parent=ente
-      - glance.name=Garage
+      - glance.name=garage
       - traefik.enable=true
-      - traefik.http.routers.ente-postgres.rule=Host(`s3.ente.ocd.beauty`)
-      - traefik.http.routers.ente-postgres.entrypoints=websecure
-      - traefik.http.routers.ente-postgres.tls.certresolver=letsencrypt
+      - traefik.http.routers.ente-garage.rule=Host(`s3.ente.ocd.beauty`)
+      - traefik.http.routers.ente-garage.entrypoints=websecure
+      - traefik.http.routers.ente-garage.tls.certresolver=letsencrypt
 
   ente-postgres:
     <<: *default-logging
@@ -42,7 +42,7 @@ services:
       - /srv/postgres:/var/lib/postgresql
     labels:
       - glance.parent=ente
-      - glance.name=Postgres
+      - glance.name=postgres
       - traefik.enable=true
       - traefik.http.routers.ente-postgres.rule=Host(`database.ente.ocd.beauty`)
       - traefik.http.routers.ente-postgres.entrypoints=websecure

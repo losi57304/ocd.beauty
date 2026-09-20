@@ -24,9 +24,9 @@ services:
       - glance.icon=sh:dufs.png
       - glance.url=https://files.music.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.gonic.rule=Host(`files.music.ocd.beauty`)
-      - traefik.http.routers.gonic.entrypoints=websecure
-      - traefik.http.routers.gonic.tls.certresolver=letsencrypt
+      - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
+      - traefik.http.routers.dufs.entrypoints=websecure
+      - traefik.http.routers.dufs.tls.certresolver=letsencrypt
 
   gonic:
     <<: *default-logging

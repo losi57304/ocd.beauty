@@ -20,9 +20,9 @@ services:
       - glance.url=https://monitoring.ocd.beauty
       - glance.id=beszel
       - traefik.enable=true
-      - traefik.http.routers.gonic.rule=Host(`monitoring.ocd.beauty`)
-      - traefik.http.routers.gonic.entrypoints=websecure
-      - traefik.http.routers.gonic.tls.certresolver=letsencrypt
+      - traefik.http.routers.beszel.rule=Host(`monitoring.ocd.beauty`)
+      - traefik.http.routers.beszel.entrypoints=websecure
+      - traefik.http.routers.beszel.tls.certresolver=letsencrypt
 
   beszel-agent:
     <<: *default-logging
