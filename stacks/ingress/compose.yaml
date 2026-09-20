@@ -28,8 +28,24 @@ services:
       - --certificatesresolvers.letsencrypt.acme.email=320689555+losi57304@users.noreply.github.com
       - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
     labels:
-      glance.name: Traefik
-      glance.icon: sh:traefik
+      - glance.name=Traefik
+      - glance.icon=sh:traefik
+
+  rathole:
+    <<: *default-logging
+    container_name: rathole
+    image: rapiz1/rathole:v0.5.0
+    restart: unless-stopped
+    command:
+      - --server
+      - /app/config.toml
+    ports:
+      - 2333:2333
+    volumes:
+      - ./rathole-config.toml:/app/config.toml:ro
+    labels:
+      - glance.name=Rathole
+      - glance.icon=sh:rathole.png
 
 networks:
   default:
