@@ -33,7 +33,7 @@ services:
       - glance.name=Traefik
       - glance.url=https://proxy.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.traefik.entrypoint=websecure
+      - traefik.http.routers.traefik.entrypoints=websecure
       - traefik.http.routers.traefik.rule=Host(`proxy.ocd.beauty`)
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.tls.certresolver=letsencrypt
