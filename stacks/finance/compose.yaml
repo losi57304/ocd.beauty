@@ -1,0 +1,29 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  finance-fireflyiii-core:
+    <<: *default-logging
+    image: fireflyiii/core:latest
+    container_name: fireflyiii-core
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    volumes:
+      - /srv/finance-fireflyiii-core/upload:/var/www/html/storage/upload
+      - /srv/finance-fireflyiii-core/database:/var/www/html/storage/database
+    restart: unless-stopped
+    labels:
+      - glance.icon=sh:firefly-iii
+      - glance.id=firefly-iii
+      - glance.name=Firefly III
+      - glance.url=https://finance.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.vaultwarden.entrypoints=websecure
+      - traefik.http.routers.vaultwarden.rule=Host(`finance.ocd.beauty`)
+      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=8080

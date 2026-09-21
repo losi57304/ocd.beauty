@@ -1,0 +1,31 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  vaultwarden-server:
+    <<: *default-logging
+    image: vaultwarden/server:latest
+    container_name: vaultwarden-server
+    environment:
+      - DOMAIN=https://vault.ocd.beauty
+    volumes:
+      - /srv/vaultwarden-server/data:/data
+    restart: unless-stopped
+    labels:
+      - glance.icon=sh:vaultwarden
+      - glance.name=Vaultwarden
+      - glance.url=https://vault.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.vaultwarden.entrypoints=websecure
+      - traefik.http.routers.vaultwarden.rule=Host(`vault.ocd.beauty`)
+      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=80
+
+networks:
+  default:
+    external: true
+    name: proxy
