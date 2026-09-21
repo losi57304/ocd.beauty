@@ -19,7 +19,7 @@ services:
       - /srv/vikunja/db:/db
     restart: unless-stopped
     labels:
-      - glance.icon=sh:vikunja
+      - glance.icon=sh:vikunja-light
       - glance.name=Vikunja
       - glance.url=https://tasks.ocd.beauty
       - traefik.enable=true

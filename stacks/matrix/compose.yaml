@@ -37,7 +37,7 @@ services:
     command:
       - /sbin/conduwuit
     labels:
-      - glance.icon=sh:continuwuity
+      - glance.icon=sh:continuwuity-light
       - glance.id=continuwuity
       - glance.name=Continuwuity
       - traefik.enable=true

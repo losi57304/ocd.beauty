@@ -69,11 +69,10 @@ pages:
 
           - type: videos
             channels:
-              - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
-              - UCR-DXc1voovS8nhAvccRZhg # Jeff Geerling
-              - UCsBjURrPoezykLs9EqgamOA # Fireship
-              - UCBJycsmduvYEL83R_U4JriQ # Marques Brownlee
-              - UCHnyfMqiRRG1u-2MsSQLbXA # Veritasium
+              - UCllddADt_Nl4iikd7CHB77w # SimTheNep VGM
+              - UCq438-bykwcdis0YKjLoqXw # imago meri
+              - UC0tK9G9GMeWQzJJsVjBrEhQ # The House of Kush
+              - UCR1ATYyCJML6dxqgQhwIKZg # Cadence Hira
 
       - size: small
         widgets:
