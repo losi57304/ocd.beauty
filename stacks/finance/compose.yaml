@@ -49,7 +49,12 @@ services:
       - glance.name=Firefly III
       - glance.url=https://finance.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.vaultwarden.entrypoints=websecure
-      - traefik.http.routers.vaultwarden.rule=Host(`finance.ocd.beauty`)
-      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
-      - traefik.http.services.vaultwarden.loadbalancer.server.port=8080
+      - traefik.http.routers.firefly-iii.entrypoints=websecure
+      - traefik.http.routers.firefly-iii.rule=Host(`finance.ocd.beauty`)
+      - traefik.http.routers.firefly-iii.tls.certresolver=letsencrypt
+      - traefik.http.services.firefly-iii.loadbalancer.server.port=8080
+
+networks:
+  default:
+    external: true
+    name: proxy

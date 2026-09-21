@@ -20,10 +20,10 @@ services:
       - glance.name=Radicale
       - glance.url=https://calendar.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.vaultwarden.entrypoints=websecure
-      - traefik.http.routers.vaultwarden.rule=Host(`calendar.ocd.beauty`)
-      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
-      - traefik.http.services.vaultwarden.loadbalancer.server.port=5232
+      - traefik.http.routers.radicale.entrypoints=websecure
+      - traefik.http.routers.radicale.rule=Host(`calendar.ocd.beauty`)
+      - traefik.http.routers.radicale.tls.certresolver=letsencrypt
+      - traefik.http.services.radicale.loadbalancer.server.port=5232
 
 networks:
   default:

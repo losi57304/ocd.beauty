@@ -1,0 +1,42 @@
+server:
+  address: "tcp://0.0.0.0:9091"
+
+log:
+  level: "info"
+
+theme: "auto"
+
+default_2fa_method: "totp"
+
+authentication_backend:
+  file:
+    path: "/config/users_database.yaml"
+    password:
+      algorithm: "argon2id"
+
+access_control:
+  default_policy: "deny"
+  rules:
+    - domain: "auth.ocd.beauty"
+      policy: "bypass"
+    - domain: "*.ocd.beauty"
+      policy: "two_factor"
+
+session:
+  name: "authelia_session"
+  expiration: "1h"
+  inactivity: "5m"
+  domain: "ocd.beauty"
+
+regulation:
+  max_retries: 3
+  find_time: "2m"
+  ban_time: "5m"
+
+storage:
+  local:
+    path: "/config/db.sqlite3"
+
+notifier:
+  filesystem:
+    filename: "/config/notification.txt"

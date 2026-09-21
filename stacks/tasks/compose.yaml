@@ -23,7 +23,12 @@ services:
       - glance.name=Vikunja
       - glance.url=https://tasks.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.vaultwarden.entrypoints=websecure
-      - traefik.http.routers.vaultwarden.rule=Host(`tasks.ocd.beauty`)
-      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
-      - traefik.http.services.vaultwarden.loadbalancer.server.port=3456
+      - traefik.http.routers.vikunja.entrypoints=websecure
+      - traefik.http.routers.vikunja.rule=Host(`tasks.ocd.beauty`)
+      - traefik.http.routers.vikunja.tls.certresolver=letsencrypt
+      - traefik.http.services.vikunja.loadbalancer.server.port=3456
+
+networks:
+  default:
+    external: true
+    name: proxy

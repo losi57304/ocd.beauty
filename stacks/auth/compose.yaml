@@ -1,0 +1,42 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  authelia:
+    <<: *default-logging
+    image: authelia/authelia:2.6.0
+    container_name: authelia
+    environment:
+      - AUTHELIA_JWT_SECRET=${AUTHELIA_JWT_SECRET}
+      - AUTHELIA_SESSION_SECRET=${AUTHELIA_SESSION_SECRET}
+      - AUTHELIA_STORAGE_ENCRYPTION_KEY=${AUTHELIA_STORAGE_ENCRYPTION_KEY}
+      - AUTHELIA_AUTHENTICATION_BACKEND_FILE_USERS_${AUTHELIA_USER_USERNAME}_DISPLAYNAME=${AUTHELIA_USER_DISPLAYNAME}
+      - AUTHELIA_AUTHENTICATION_BACKEND_FILE_USERS_${AUTHELIA_USER_USERNAME}_PASSWORD=${AUTHELIA_USER_PASSWORD_HASH}
+      - AUTHELIA_AUTHENTICATION_BACKEND_FILE_USERS_${AUTHELIA_USER_USERNAME}_EMAIL=${AUTHELIA_USER_EMAIL}
+      - AUTHELIA_AUTHENTICATION_BACKEND_FILE_USERS_${AUTHELIA_USER_USERNAME}_GROUPS=${AUTHELIA_USER_GROUPS}
+    expose:
+      - 9091
+    volumes:
+      - ./config:/config:ro
+    restart: unless-stopped
+    labels:
+      - glance.icon=sh:authelia-light
+      - glance.name=Authelia
+      - glance.url=https://auth.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.authelia.entrypoints=websecure
+      - traefik.http.routers.authelia.rule=Host(`auth.ocd.beauty`)
+      - traefik.http.routers.authelia.tls.certresolver=letsencrypt
+      - traefik.http.services.authelia.loadbalancer.server.port=9091
+      - traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/authz/forward-auth
+      - traefik.http.middlewares.authelia.forwardauth.trustforwardheader=true
+      - traefik.http.middlewares.authelia.forwardauth.authresponseheaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
+
+networks:
+  default:
+    external: true
+    name: proxy
