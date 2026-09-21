@@ -1,0 +1,31 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  radicale:
+    <<: *default-logging
+    image: ghcr.io/kozea/radicale:3.5.4
+    container_name: radicale
+    volumes:
+      - /srv/radicale/config:/etc/radicale:ro
+      - /srv/radicale/data:/var/lib/radicale
+    user: root
+    restart: unless-stopped
+    labels:
+      - glance.icon=sh:radicale-light
+      - glance.name=Radicale
+      - glance.url=https://calendar.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.vaultwarden.entrypoints=websecure
+      - traefik.http.routers.vaultwarden.rule=Host(`calendar.ocd.beauty`)
+      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
+      - traefik.http.services.vaultwarden.loadbalancer.server.port=5232
+
+networks:
+  default:
+    external: true
+    name: proxy
