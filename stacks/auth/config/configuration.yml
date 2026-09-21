@@ -30,7 +30,6 @@ session:
   secret: "${AUTHELIA_SESSION_SECRET}"
   expiration: "1h"
   inactivity: "5m"
-  domain: "ocd.beauty"
   cookies:
     - domain: "ocd.beauty"
       authelia_url: "https://auth.ocd.beauty"
