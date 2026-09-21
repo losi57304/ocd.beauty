@@ -1,4 +1,5 @@
 include:
+  - stacks/auth/compose.yaml
   - stacks/calendar/compose.yaml
   - stacks/ci/compose.yaml
   - stacks/ente/compose.yaml
