@@ -21,7 +21,7 @@ services:
     expose:
       - 9091
     volumes:
-      - ./config:/config:ro
+      - ./config:/config
     restart: unless-stopped
     labels:
       - glance.icon=sh:authelia-light
