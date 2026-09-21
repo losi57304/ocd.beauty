@@ -1,0 +1,32 @@
+x-logging: &default-logging
+  logging:
+    driver: local
+    options:
+      max-file: 3
+      max-size: 10m
+
+services:
+  siyuan:
+    <<: *default-logging
+    image: b3log/siyuan:v3.8.4
+    command:
+      - serve
+      - --workspace=/siyuan/workspace
+      - --accessAuthCode=${ACCESS_AUTH_CODE}
+    volumes:
+      - /srv/siyuan/workspace:/siyuan/workspace
+    restart: unless-stopped
+    labels:
+      - glance.icon=sh:siyuan-light
+      - glance.name=Siyuan
+      - glance.url=https://notes.ocd.beauty
+      - traefik.enable=true
+      - traefik.http.routers.vikunja.entrypoints=websecure
+      - traefik.http.routers.vikunja.rule=Host(`notes.ocd.beauty`)
+      - traefik.http.routers.vikunja.tls.certresolver=letsencrypt
+      - traefik.http.services.vikunja.loadbalancer.server.port=6806
+
+networks:
+  default:
+    external: true
+    name: proxy

@@ -9,6 +9,7 @@ include:
   - stacks/matrix/compose.yaml
   - stacks/monitoring/compose.yaml
   - stacks/music/compose.yaml
+  - stakcs/notes/compose.yaml
   - stacks/proxy/compose.yaml
   - stacks/tasks/compose.yaml
   - stacks/vault/compose.yaml
