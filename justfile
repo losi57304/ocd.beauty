@@ -11,6 +11,8 @@ decrypt:
         fi
     done
 
+    sops decrypt "stacks/auth/config/users_database.enc.yml" > "stacks/auth/config/users_database.yml"
+
 deploy:
     docker compose down
     git pull
@@ -26,3 +28,5 @@ encrypt:
             sops encrypt "$stack/.env" > "$stack/.enc.env"
         fi
     done
+
+    sops encrypt "stacks/auth/config/users_database.yml" > "stacks/auth/config/users_database.enc.yml"
