@@ -25,7 +25,7 @@ services:
       - /srv/woodpecker-ci/server/data:/var/lib/woodpecker
     restart: unless-stopped
     labels:
-      - glance.icon=sh:woodpecker-ci
+      - glance.icon=sh:woodpecker-ci-light
       - glance.id=woodpecker-ci-server
       - glance.name=Woodpecker CI
       - glance.url=https://ci.ocd.beauty

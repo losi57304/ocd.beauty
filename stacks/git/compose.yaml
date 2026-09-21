@@ -18,7 +18,7 @@ services:
       - /srv/forgejo/data:/data
     restart: unless-stopped
     labels:
-      - glance.icon=sh:forgejo
+      - glance.icon=sh:forgejo-light
       - glance.name=Forgejo
       - glance.url=https://git.ocd.beauty
       - traefik.enable=true

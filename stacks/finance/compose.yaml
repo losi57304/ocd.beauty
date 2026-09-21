@@ -18,7 +18,7 @@ services:
       - /srv/finance-fireflyiii-core/database:/var/www/html/storage/database
     restart: unless-stopped
     labels:
-      - glance.icon=sh:firefly-iii
+      - glance.icon=sh:firefly-iii-light
       - glance.id=firefly-iii
       - glance.name=Firefly III
       - glance.url=https://finance.ocd.beauty

@@ -20,7 +20,7 @@ services:
       - ./glance.yaml:/app/config/glance.yml:ro
     restart: unless-stopped
     labels:
-      - glance.icon=sh:glance
+      - glance.icon=sh:glance-light
       - glance.name=Glance
       - glance.url=https://home.ocd.beauty
       - traefik.enable=true

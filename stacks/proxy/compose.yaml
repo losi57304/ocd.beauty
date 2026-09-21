@@ -29,7 +29,7 @@ services:
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
     labels:
-      - glance.icon=sh:traefik
+      - glance.icon=sh:traefik-light
       - glance.name=Traefik
       - glance.url=https://proxy.ocd.beauty
       - traefik.enable=true
