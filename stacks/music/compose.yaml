@@ -11,7 +11,7 @@ services:
     image: sigoden/dufs:v0.46.0
     container_name: dufs
     volumes:
-      - /srv/gonic/music:/music
+      - /srv/navidrome/music:/music
     restart: unless-stopped
     command:
       - --allow-all
@@ -27,32 +27,23 @@ services:
       - traefik.http.routers.dufs.tls.certresolver=letsencrypt
       - traefik.http.services.dufs.loadbalancer.server.port=5000
 
-  gonic:
+  navidrome:
     <<: *default-logging
-    image: sentriz/gonic:8df10c3
-    container_name: gonic
-    environment:
-      - GONIC_CACHE_PATH=/cache
-      - GONIC_DB_PATH=/data/gonic.db
-      - GONIC_MUSIC_PATH=/music
-      - GONIC_PLAYLISTS_PATH=/playlists
-      - GONIC_PODCAST_PATH=/podcast
+    image: deluan/navidrome:latest
+    container_name: navidrome
     volumes:
-      - /srv/gonic/cache:/cache
-      - /srv/gonic/data:/data
-      - /srv/gonic/music:/music
-      - /srv/gonic/playlists:/playlists
-      - /srv/gonic/podcast:/podcast
+      - /srv/navidrome/data:/data
+      - /srv/navidrome/music:/music:ro
     restart: unless-stopped
     labels:
-      - glance.icon=sh:gonic.png
-      - glance.name=Gonic
+      - glance.icon=sh:navidrome-light
+      - glance.name=Navidrome
       - glance.url=https://music.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.gonic.rule=Host(`music.ocd.beauty`)
       - traefik.http.routers.gonic.entrypoints=websecure
       - traefik.http.routers.gonic.tls.certresolver=letsencrypt
-      - traefik.http.services.gonic.loadbalancer.server.port=80
+      - traefik.http.services.gonic.loadbalancer.server.port=4533
 
 networks:
   default:
