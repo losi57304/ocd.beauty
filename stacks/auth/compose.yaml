@@ -17,7 +17,9 @@ services:
     expose:
       - 9091
     volumes:
-      - ./config:/config
+      - /srv/authelia/config:/config
+      - ./configuration.yaml:/config/configuration.yml
+      - ./users_database.yaml:/config/users_database.yaml
     restart: unless-stopped
     labels:
       - glance.icon=sh:authelia-light

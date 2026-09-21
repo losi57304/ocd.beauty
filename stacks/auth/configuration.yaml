@@ -13,7 +13,7 @@ identity_validation:
 
 authentication_backend:
   file:
-    path: "/config/users_database.yml"
+    path: "/config/users_database.yaml"
     password:
       algorithm: "argon2id"
 
