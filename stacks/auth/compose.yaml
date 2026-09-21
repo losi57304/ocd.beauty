@@ -8,7 +8,7 @@ x-logging: &default-logging
 services:
   authelia:
     <<: *default-logging
-    image: authelia/authelia:2.6.0
+    image: authelia/authelia:4.39.28
     container_name: authelia
     environment:
       - AUTHELIA_JWT_SECRET=${AUTHELIA_JWT_SECRET}
