@@ -8,7 +8,7 @@ x-logging: &default-logging
 services:
   vaultwarden-server:
     <<: *default-logging
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:1.37.3
     container_name: vaultwarden-server
     environment:
       - DOMAIN=https://vault.ocd.beauty

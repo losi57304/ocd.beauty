@@ -8,7 +8,7 @@ x-logging: &default-logging
 services:
   radicale:
     <<: *default-logging
-    image: ghcr.io/kozea/radicale:3.5.4
+    image: ghcr.io/kozea/radicale:3.8.0
     container_name: radicale
     volumes:
       - /srv/radicale/config:/etc/radicale:ro

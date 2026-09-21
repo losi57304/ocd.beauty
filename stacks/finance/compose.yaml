@@ -6,13 +6,39 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  finance-fireflyiii-core:
+  fireflyiii-core:
     <<: *default-logging
-    image: fireflyiii/core:latest
+    image: fireflyiii/core:version-6.7.3
     container_name: fireflyiii-core
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
+      - APP_KEY=${APP_KEY}
+      - DEFAULT_LANGUAGE=en_US
+      - DEFAULT_LOCALE=equal
+      - TZ=Europe/Amsterdam
+      - TRUSTED_PROXIES=**
+      - LOG_CHANNEL=stack
+      - APP_LOG_LEVEL=notice
+      - AUDIT_LOG_LEVEL=emergency
+      - DB_CONNECTION=sqlite
+      - CACHE_STORE=file
+      - SESSION_DRIVER=file
+      - COOKIE_PATH="/"
+      - COOKIE_DOMAIN=
+      - COOKIE_SECURE=false
+      - COOKIE_SAMESITE=lax
+      - SEND_ERROR_MESSAGE=true
+      - AUTHENTICATION_GUARD=web
+      - AUTHENTICATION_GUARD_HEADER=REMOTE_USER
+      - AUTHENTICATION_GUARD_EMAIL=
+      - DISABLE_FRAME_HEADER=false
+      - DISABLE_CSP_HEADER=false
+      - APP_NAME=FireflyIII
+      - BROADCAST_DRIVER=log
+      - QUEUE_DRIVER=sync
+      - CACHE_PREFIX=firefly
+      - APP_URL=http://localhost
     volumes:
       - /srv/finance-fireflyiii-core/upload:/var/www/html/storage/upload
       - /srv/finance-fireflyiii-core/database:/var/www/html/storage/database
