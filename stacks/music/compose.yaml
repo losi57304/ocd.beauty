@@ -19,10 +19,10 @@ services:
       - glance.name=Copyparty
       - glance.url=https://files.music.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.dufs.entrypoints=websecure
-      - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
-      - traefik.http.routers.dufs.tls.certresolver=letsencrypt
-      - traefik.http.services.dufs.loadbalancer.server.port=3923
+      - traefik.http.routers.copyparty.entrypoints=websecure
+      - traefik.http.routers.copyparty.rule=Host(`files.music.ocd.beauty`)
+      - traefik.http.routers.copyparty.tls.certresolver=letsencrypt
+      - traefik.http.services.copyparty.loadbalancer.server.port=3923
 
   navidrome:
     <<: *default-logging
