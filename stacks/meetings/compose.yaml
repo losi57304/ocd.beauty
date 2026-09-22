@@ -95,7 +95,7 @@ services:
       - /srv/jitsi-web/crontabs:/var/spool/cron/crontabs
     restart: unless-stopped
     labels:
-      - glance.icon=sh:jitsi-light
+      - glance.icon=sh:jitsi-meet-light
       - glance.id=jitsi-web
       - glance.name=Jitsi
       - traefik.enable=true

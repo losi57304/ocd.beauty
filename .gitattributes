@@ -1,2 +1,2 @@
 .enc.env diff=sopsdiffer
-users_database.enc.yml diff=sopsdiffer
+users_database.enc.yaml diff=sopsdiffer
