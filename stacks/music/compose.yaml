@@ -14,6 +14,9 @@ services:
       - /srv/copyparty/cfg:/cfg
       - /srv/navidrome/music:/w
     restart: unless-stopped
+    command:
+      - -v
+      - /w::rwmda
     labels:
       - glance.icon=sh:copyparty-light
       - glance.name=Copyparty
