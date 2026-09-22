@@ -6,26 +6,23 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  dufs:
+  copyparty:
     <<: *default-logging
-    image: sigoden/dufs:v0.46.0
-    container_name: dufs
+    image: copyparty/ac:1.20.24
+    container_name: copyparty
     volumes:
-      - /srv/navidrome/music:/music
+      - /srv/copyparty/cfg:/cfg
+      - /srv/navidrome/music:/w
     restart: unless-stopped
-    command:
-      - --allow-all
-      - --auth=${DUFS_USERNAME}:${DUFS_PASSWORD}@/:rw
-      - /music
     labels:
-      - glance.icon=sh:dufs.png
-      - glance.name=Dufs
+      - glance.icon=sh:copyparty-light
+      - glance.name=Copyparty
       - glance.url=https://files.music.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.dufs.entrypoints=websecure
       - traefik.http.routers.dufs.rule=Host(`files.music.ocd.beauty`)
       - traefik.http.routers.dufs.tls.certresolver=letsencrypt
-      - traefik.http.services.dufs.loadbalancer.server.port=5000
+      - traefik.http.services.dufs.loadbalancer.server.port=3923
 
   navidrome:
     <<: *default-logging
