@@ -1,7 +1,0 @@
-users:
-    losi57304:
-        displayname: losi57304
-        password: $argon2id$v=19$m=65536,t=3,p=4$2XIOVXWyFF4yWKDBVRkp6A$WjJeJnQuFs5jPYIAj+LC3F3WnYtIY0hD7Sy0lWi2m4I
-        email: 320689555+losi57304@users.noreply.github.com
-        groups:
-            - admins

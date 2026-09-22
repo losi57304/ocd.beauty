@@ -11,18 +11,18 @@ services:
     image: b3log/siyuan:v3.8.4
     command:
       - serve
-      - --workspace=/siyuan/workspace
       - --accessAuthCode=${ACCESS_AUTH_CODE}
+      - --workspace=/siyuan/workspace
     volumes:
       - /srv/siyuan/workspace:/siyuan/workspace
     restart: unless-stopped
     labels:
       - glance.icon=sh:siyuan-light
-      - glance.name=Siyuan
-      - glance.url=https://notes.ocd.beauty
+      - glance.name=SiYuan
+      - glance.url=https://note.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.vikunja.entrypoints=websecure
-      - traefik.http.routers.vikunja.rule=Host(`notes.ocd.beauty`)
+      - traefik.http.routers.vikunja.rule=Host(`note.ocd.beauty`)
       - traefik.http.routers.vikunja.tls.certresolver=letsencrypt
       - traefik.http.services.vikunja.loadbalancer.server.port=6806
 

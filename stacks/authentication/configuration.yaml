@@ -20,7 +20,7 @@ authentication_backend:
 access_control:
   default_policy: "two_factor"
   rules:
-    - domain: "auth.ocd.beauty"
+    - domain: "authentication.ocd.beauty"
       policy: "bypass"
     - domain: "*.ocd.beauty"
       policy: "two_factor"
@@ -32,7 +32,7 @@ session:
   inactivity: "5m"
   cookies:
     - domain: "ocd.beauty"
-      authelia_url: "https://auth.ocd.beauty"
+      authelia_url: "https://authentication.ocd.beauty"
       default_redirection_url: "https://ocd.beauty"
 
 regulation:

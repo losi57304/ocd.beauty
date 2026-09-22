@@ -11,14 +11,14 @@ ip_lookup_strategy = 1
 request_ip_source = "x_forwarded_for"
 rocksdb_compression_algo = "lz4"
 rocksdb_wal_compression = "none"
-server_name = "matrix.ocd.beauty"
+server_name = "chat.ocd.beauty"
 
 [global.matrix_rtc]
 foci = [
-    { livekit_service_url = "https://jwt.rtc.ocd.beauty", type = "livekit" },
+    { livekit_service_url = "https://jwt.rtc.chat.ocd.beauty", type = "livekit" },
 ]
 
 [global.well_known]
-client = "https://matrix.ocd.beauty"
-server = "matrix.ocd.beauty:443"
+client = "https://chat.ocd.beauty"
+server = "chat.ocd.beauty:443"
 support_email = "320689555+losi57304@users.noreply.github.com"

@@ -22,10 +22,10 @@ services:
       - glance.name=Forgejo
       - glance.url=https://git.ocd.beauty
       - traefik.enable=true
-      - traefik.http.routers.gitea.entrypoints=websecure
-      - traefik.http.routers.gitea.rule=Host(`git.ocd.beauty`)
-      - traefik.http.routers.gitea.tls.certresolver=letsencrypt
-      - traefik.http.services.gitea.loadbalancer.server.port=3000
+      - traefik.http.routers.forgejo.entrypoints=websecure
+      - traefik.http.routers.forgejo.rule=Host(`git.ocd.beauty`)
+      - traefik.http.routers.forgejo.tls.certresolver=letsencrypt
+      - traefik.http.services.forgejo.loadbalancer.server.port=3000
 
 networks:
   default:

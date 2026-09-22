@@ -11,7 +11,7 @@ services:
     image: vikunja/vikunja:2.6.0
     container_name: vikunja
     environment:
-      - VIKUNJA_SERVICE_PUBLICURL=https://tasks.ocd.beauty
+      - VIKUNJA_SERVICE_PUBLICURL=https://task.ocd.beauty
       - VIKUNJA_SERVICE_SECRET=${VIKUNJA_SERVICE_SECRET}
       - VIKUNJA_DATABASE_PATH=/db/vikunja.db
     volumes:
@@ -21,10 +21,10 @@ services:
     labels:
       - glance.icon=sh:vikunja-light
       - glance.name=Vikunja
-      - glance.url=https://tasks.ocd.beauty
+      - glance.url=https://task.ocd.beauty
       - traefik.enable=true
       - traefik.http.routers.vikunja.entrypoints=websecure
-      - traefik.http.routers.vikunja.rule=Host(`tasks.ocd.beauty`)
+      - traefik.http.routers.vikunja.rule=Host(`task.ocd.beauty`)
       - traefik.http.routers.vikunja.tls.certresolver=letsencrypt
       - traefik.http.services.vikunja.loadbalancer.server.port=3456
 

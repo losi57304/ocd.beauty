@@ -1,15 +1,15 @@
 include:
-  - stacks/auth/compose.yaml
+  - stacks/authentication/compose.yaml
   - stacks/calendar/compose.yaml
+  - stacks/chat/compose.yaml
   - stacks/ci/compose.yaml
-  - stacks/ente/compose.yaml
+  - stacks/cloud/compose.yaml
   - stacks/finance/compose.yaml
   - stacks/git/compose.yaml
   - stacks/home/compose.yaml
-  - stacks/matrix/compose.yaml
   - stacks/monitoring/compose.yaml
   - stacks/music/compose.yaml
-  - stacks/notes/compose.yaml
+  - stacks/note/compose.yaml
   - stacks/proxy/compose.yaml
-  - stacks/tasks/compose.yaml
-  - stacks/vault/compose.yaml
+  - stacks/secret/compose.yaml
+  - stacks/task/compose.yaml
