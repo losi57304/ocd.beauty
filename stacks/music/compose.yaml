@@ -16,7 +16,11 @@ services:
     restart: unless-stopped
     command:
       - -v
-      - /w::rwmda
+      - /w::rw
+      - -u
+      - ${COPYPARTY_USER}:${COPYPARTY_PASSWORD}
+      - -a
+      - ${COPYPARTY_USER}:rwmda
     labels:
       - glance.icon=sh:copyparty-light
       - glance.name=Copyparty
