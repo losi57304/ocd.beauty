@@ -21,36 +21,6 @@ pages:
           - type: calendar
             first-day-of-week: monday
 
-          - type: bookmarks
-            groups:
-              - links:
-                  - title: Gmail
-                    url: https://mail.google.com/mail/u/0/
-                  - title: Amazon
-                    url: https://www.amazon.com/
-                  - title: Github
-                    url: https://github.com/
-                  - title: Wikipedia
-                    url: https://en.wikipedia.org/
-              - title: Entertainment
-                links:
-                  - title: Netflix
-                    url: https://www.netflix.com/
-                  - title: Disney+
-                    url: https://www.disneyplus.com/
-                  - title: YouTube
-                    url: https://www.youtube.com/
-                  - title: Prime Video
-                    url: https://www.primevideo.com/
-              - title: Social
-                links:
-                  - title: Reddit
-                    url: https://www.reddit.com/
-                  - title: Twitter
-                    url: https://twitter.com/
-                  - title: Instagram
-                    url: https://www.instagram.com/
-
       - size: full
         widgets:
           - type: search
