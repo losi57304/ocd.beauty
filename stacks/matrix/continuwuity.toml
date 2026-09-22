@@ -1,0 +1,24 @@
+[global]
+address = "0.0.0.0"
+allow_incoming_presence = false
+allow_local_presence = false
+allow_outgoing_read_receipts = false
+allow_outgoing_typing = false
+cache_capacity_modifier = 2.0
+database_path = "/var/lib/continuwuity"
+dns_cache_entries = 0
+ip_lookup_strategy = 1
+request_ip_source = "x_forwarded_for"
+rocksdb_compression_algo = "lz4"
+rocksdb_wal_compression = "none"
+server_name = "matrix.ocd.beauty"
+
+[global.matrix_rtc]
+foci = [
+    { livekit_service_url = "https://jwt.rtc.ocd.beauty", type = "livekit" },
+]
+
+[global.well_known]
+client = "https://matrix.ocd.beauty"
+server = "matrix.ocd.beauty:443"
+support_email = "320689555+losi57304@users.noreply.github.com"
