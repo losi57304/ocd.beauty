@@ -11,7 +11,7 @@ decrypt:
         fi
     done
 
-    sops decrypt "stacks/auth/users_database.enc.yaml" > "stacks/auth/users_database.yaml"
+    sops decrypt "stacks/authentication/users_database.enc.yaml" > "stacks/authentication/users_database.yaml"
 
 deploy:
     docker compose down
@@ -29,4 +29,4 @@ encrypt:
         fi
     done
 
-    sops encrypt "stacks/auth/users_database.yaml" > "stacks/auth/users_database.enc.yaml"
+    sops encrypt "stacks/authentication/users_database.yaml" > "stacks/authentication/users_database.enc.yaml"
